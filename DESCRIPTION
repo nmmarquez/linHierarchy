@@ -1,9 +1,9 @@
 Package: linHierarchy
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
+Title: Generate linear rankings from dyadic interactions within a group
+Version: 0.1
 Date: 2014-05-09
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Neal Marquez
+Maintainer: Neal Marquez <niel.marquez@nih.gov>
+Description: NICHD LCE
+License: NICHD LCE
