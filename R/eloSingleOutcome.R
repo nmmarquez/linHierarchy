@@ -13,25 +13,25 @@
 #' @return a vector with player A's and B's new scores
 #' @export
 
-singleOutcome = function (RA, RB, outcome, kA, kB, minThresh = 100){
+singleOutcome <- function (RA, RB, outcome, kA, kB, minThresh = 100){
     # calculate the probability of A winning
-    QA = 10**(RA/400)
-    QB = 10**(RB/400)
-    p = QA / (QA + QB)
+    QA <- 10**(RA/400)
+    QB <- 10**(RB/400)
+    p <- QA / (QA + QB)
     
     # calculate new scores
     if (outcome >= 0){
-        newA = ((RA + (1-p)*kA)**(outcome))*((RA - (1-p)*kA)**(1 - outcome))
-        newB = ((RB - (1-p)*kB)**(outcome))*((RB + (1-p)*kB)**(1 - outcome))
+        newA <- ((RA + (1-p)*kA)**(outcome))*((RA - (1-p)*kA)**(1 - outcome))
+        newB <- ((RB - (1-p)*kB)**(outcome))*((RB + (1-p)*kB)**(1 - outcome))
     }
     else{
-        newA = RA - p*kA
-        newB = RB + p*kB
+        newA <- RA - p*kA
+        newB <- RB + p*kB
     }
     
     # create player score floor so that scores never go below a min threshold
-    if (newA < minThresh) {newA = minThresh}
-    if (newB < minThresh) {newB = minThresh}
+    if (newA < minThresh) {newA <- minThresh}
+    if (newB < minThresh) {newB <- minThresh}
     
     return (round (c(newA, newB)))
 }
