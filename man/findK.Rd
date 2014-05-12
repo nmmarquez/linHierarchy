@@ -32,7 +32,7 @@ and kFactors = c(32,24,16):
 }
 \note{
 In order to ensure a proper function call the kScaleBounds
-parametermust be sorted from least to greatest and must be of a length
+parameter must be sorted from least to greatest and must be of a length
 1 greater than the kFactors parameter. In addition assigning the first
 element of kScaleBounds to -Inf and the last to Inf will allow the
 players score to always remain within an acceptable range.

@@ -2,8 +2,8 @@
 #' 
 #' Takes the elo score of two individuals as well as their rating adjustments
 #' and generates new scores based on the methods of Neumann et al 2011
-#' @param RA Score of the higher rated player
-#' @param RB score of the lower rated player
+#' @param RA Score of the higher rated player (player A)
+#' @param RB score of the lower rated player (player B)
 #' @param outcome either 1 player A wins, -1 player B wins, or 0 tie
 #' @param kA the k factor for player A
 #' @param kB the k factor for player B

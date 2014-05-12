@@ -6,9 +6,9 @@
 singleOutcome(RA, RB, outcome, kA, kB, minThresh = 100)
 }
 \arguments{
-\item{RA}{Score of the higher rated player}
+\item{RA}{Score of the higher rated player (player A)}
 
-\item{RB}{score of the lower rated player}
+\item{RB}{score of the lower rated player (player B)}
 
 \item{outcome}{either 1 player A wins, -1 player B wins, or 0 tie}
 
