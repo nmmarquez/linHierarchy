@@ -8,6 +8,7 @@
 #' @param kA the k factor for player A
 #' @param kB the k factor for player B
 #' @param minThresh the minimum value of any players score
+#' @param ... further arguments to be passed to or from other methods.
 #' @references Neumann et al (2011) Assessing Dominance Hierarchies. 
 #' Animal Behaviour
 #' @return a vector with player A's and B's new scores

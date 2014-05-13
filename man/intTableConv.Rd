@@ -36,4 +36,11 @@ be as follows:
 - column 4: a vector to be coerced to the class POSIXct denoting the time of
 the interaction/game
 }
+\examples{
+# generate generic data
+interactions <- data.frame (p1 = c('i', 'j', 'i'), p2 = c('j', 'h', 'h'),
+                            o = 1, d = c ('1/1/89', '1/3/89', '1/2/89'))
+# convert to interData object
+intTableConv (interactions, format = '\%m/\%d/\%y')
+}
 

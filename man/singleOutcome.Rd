@@ -17,6 +17,8 @@ singleOutcome(RA, RB, outcome, kA, kB, minThresh = 100, ...)
 \item{kB}{the k factor for player B}
 
 \item{minThresh}{the minimum value of any players score}
+
+\item{...}{further arguments to be passed to or from other methods.}
 }
 \value{
 a vector with player A's and B's new scores

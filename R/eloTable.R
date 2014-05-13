@@ -14,6 +14,14 @@
 #' @return An object of the class eloTable which contains a list of players
 #' in the graoup, the date range of interactions and a data frame sorted by
 #' date containing any changes in an individuals elo rating.
+#' @examples 
+#' # generate generic data
+#' interactions <- data.frame (p1 = c('i', 'j', 'i'), p2 = c('j', 'h', 'h'),
+#'                             o = 1, d = c ('1/1/89', '1/3/89', '1/2/89'))
+#' # convert to interData object
+#' id1 <- intTableConv (interactions, format = '%m/%d/%y')
+#' # produce eloTable object
+#' eloTable (id1)
 #' @references Neumann et al (2011) Assessing Dominance Hierarchies. 
 #' Animal Behaviour
 #' @export

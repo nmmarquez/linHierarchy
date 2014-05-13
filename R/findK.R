@@ -6,6 +6,7 @@
 #' @param playerScore the score of the player in question
 #' @param kScaleBounds the player score bins to associate with K factors
 #' @param kFactors the possible K factors to be used
+#' @param ... further arguments to be passed to or from other methods.
 #' @references Neumann et al (2011) Assessing Dominance Hierarchies. 
 #' Animal Behaviour
 #' @return the players associated K factor
@@ -21,7 +22,14 @@
 #' parameter must be sorted from least to greatest and must be of a length
 #' 1 greater than the kFactors parameter. In addition assigning the first
 #' element of kScaleBounds to -Inf and the last to Inf will allow the
-#' players score to always remain within an acceptable range. 
+#' players score to always remain within an acceptable range.
+#' @examples
+#' # generic function calls
+#' findK (1000)
+#' findK (1000, kScaleBounds = c(-Inf, 1100, Inf), kFactors = c(32, 16))
+#' # may cause errors in elo algorithim if range of kscale bounds isnt all real
+#' # numbers but you can still call it this way
+#' findK (1000, kScaleBounds = c(0, 500, 100, Inf), kFactors = c(32, 16, 8))
 #' @export
 
 findK <- function (playerScore,kScaleBounds =c(-Inf, Inf),kFactors = 100, ...){
