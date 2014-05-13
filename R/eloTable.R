@@ -11,6 +11,9 @@
 #' element of interData. Further arguments are passed to the findK and 
 #' singleOutcome functions and include the paramters; kScaleBounds, kFactors,
 #' and minTresh.
+#' @return An object of the class eloTable which contains a list of players
+#' in the graoup, the date range of interactions and a data frame sorted by
+#' date containing any changes in an individuals elo rating.
 #' @references Neumann et al (2011) Assessing Dominance Hierarchies. 
 #' Animal Behaviour
 #' @export
@@ -20,11 +23,8 @@ eloTable <- function (interData, initial = 1000, ...){
         warning ('object not of class "interData"')
     }
     df.int <- interData [[2]]; players <- interData [[1]]
-    
-    # create elo table
     elo <- data.frame (player = players, score = initial, 
                        date = as.POSIXct (NA), stringsAsFactors = F)
-    
     for (i in 1:nrow (df.int)){
         n <- nrow (elo); p1 <- df.int [i,1]; p2 <- df.int [i,2] 
         out <- df.int [i, 3]; time <- df.int [i, 4]
@@ -45,6 +45,8 @@ eloTable <- function (interData, initial = 1000, ...){
             elo [n+2,'score'] <- singleOutcome(sc2, sc1, -out, k1, k2, ...) [1]
         }
     }
-    elo.f <- list (eloTable = elo); class (elo.f) <- 'eloTable'
+    elo.f <- list (players = players, dates = range (elo$date, na.rm = T),
+                   eloTable = elo)
+    names (elo.f [[2]]) <- c('start', 'end'); class (elo.f) <- 'eloTable'
     return (elo.f)
 }

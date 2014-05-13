@@ -3,7 +3,7 @@
 \alias{findK}
 \title{Generate the appropriate K factor given a players score}
 \usage{
-findK(playerScore, kScaleBounds = c(-Inf, Inf), kFactors = 100)
+findK(playerScore, kScaleBounds = c(-Inf, Inf), kFactors = 100, ...)
 }
 \arguments{
 \item{playerScore}{the score of the player in question}

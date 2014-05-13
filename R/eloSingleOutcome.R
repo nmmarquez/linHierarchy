@@ -13,7 +13,7 @@
 #' @return a vector with player A's and B's new scores
 #' @export
 
-singleOutcome <- function (RA, RB, outcome, kA, kB, minThresh = 100){
+singleOutcome <- function (RA, RB, outcome, kA, kB, minThresh = 100, ...){
     # calculate the probability of A winning
     QA <- 10**(RA/400)
     QB <- 10**(RB/400)

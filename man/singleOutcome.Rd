@@ -3,7 +3,7 @@
 \alias{singleOutcome}
 \title{Generate New Elo Scores from a Single Dyadic Interaction}
 \usage{
-singleOutcome(RA, RB, outcome, kA, kB, minThresh = 100)
+singleOutcome(RA, RB, outcome, kA, kB, minThresh = 100, ...)
 }
 \arguments{
 \item{RA}{Score of the higher rated player (player A)}

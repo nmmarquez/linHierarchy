@@ -12,6 +12,11 @@ eloTable(interData, initial = 1000, ...)
 
 \item{...}{further arguments to be passed to or from other methods.}
 }
+\value{
+An object of the class eloTable which contains a list of players
+in the graoup, the date range of interactions and a data frame sorted by
+date containing any changes in an individuals elo rating.
+}
 \description{
 Given an object of the class "interData" will produce a series of elo
 ratings up until the latest interaction in the interData object.

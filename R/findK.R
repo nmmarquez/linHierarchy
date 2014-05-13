@@ -24,7 +24,7 @@
 #' players score to always remain within an acceptable range. 
 #' @export
 
-findK <- function (playerScore, kScaleBounds = c(-Inf, Inf), kFactors = 100){
+findK <- function (playerScore,kScaleBounds =c(-Inf, Inf),kFactors = 100, ...){
     
     bounds <- sort (kScaleBounds)
     
