@@ -15,9 +15,11 @@
 #' @export
 
 singleOutcome <- function (RA, RB, outcome, kA, kB, minThresh = 100, ...){
+    if (RA < RB){
+        stop ("Players A's rating (RA) must be greater than B's (RB)")
+    }
     # calculate the probability of A winning
-    QA <- 10**(RA/400)
-    QB <- 10**(RB/400)
+    QA <- 10**(RA/400); QB <- 10**(RB/400)
     p <- QA / (QA + QB)
     
     # calculate new scores

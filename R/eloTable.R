@@ -12,8 +12,8 @@
 #' singleOutcome functions and include the paramters; kScaleBounds, kFactors,
 #' and minTresh.
 #' @return An object of the class eloTable which contains a list of players
-#' in the graoup, the date range of interactions and a data frame sorted by
-#' date containing any changes in an individuals elo rating.
+#' in the graoup, the time range of interactions, and a data frame sorted by
+#' time containing any changes in an individuals elo rating.
 #' @examples 
 #' # generate generic data
 #' interactions <- data.frame (p1 = c('i', 'j', 'i'), p2 = c('j', 'h', 'h'),
@@ -32,7 +32,7 @@ eloTable <- function (interData, initial = 1000, ...){
     }
     df.int <- interData [[2]]; players <- interData [[1]]
     elo <- data.frame (player = players, score = initial, 
-                       date = as.POSIXct (NA), stringsAsFactors = F)
+                       datetime = as.POSIXct (NA), stringsAsFactors = F)
     for (i in 1:nrow (df.int)){
         n <- nrow (elo); p1 <- df.int [i,1]; p2 <- df.int [i,2] 
         out <- df.int [i, 3]; time <- df.int [i, 4]
@@ -41,19 +41,19 @@ eloTable <- function (interData, initial = 1000, ...){
         k1 <- findK (sc1, ...); k2 <- findK (sc2, ...) # get k factors
         
         if (sc1 >= sc2){
-            elo [n+1,'player'] <- p1; elo [n+1, 'date'] <- time
+            elo [n+1,'player'] <- p1; elo [n+1, 'datetime'] <- time
             elo [n+1,'score'] <- singleOutcome (sc1, sc2, out, k1, k2, ...) [1]
-            elo [n+2,'player'] <- p2; elo [n+2, 'date'] <- time
+            elo [n+2,'player'] <- p2; elo [n+2, 'datetime'] <- time
             elo [n+2,'score'] <- singleOutcome (sc1, sc2, out, k1, k2, ...) [2]
         }
         else {
-            elo [n+1,'player'] <- p1; elo [n+1,'date'] <- time
-            elo [n+1,'score'] <- singleOutcome(sc2, sc1, -out, k1, k2, ...) [2]
-            elo [n+2,'player'] <- p2; elo [n+2,'date'] <- time
-            elo [n+2,'score'] <- singleOutcome(sc2, sc1, -out, k1, k2, ...) [1]
+            elo [n+1,'player'] <- p1; elo [n+1,'datetime'] <- time
+            elo [n+1,'score'] <- singleOutcome(sc2, sc1, -out, k2, k1, ...) [2]
+            elo [n+2,'player'] <- p2; elo [n+2,'datetime'] <- time
+            elo [n+2,'score'] <- singleOutcome(sc2, sc1, -out, k2, k1, ...) [1]
         }
     }
-    elo.f <- list (players = players, dates = range (elo$date, na.rm = T),
+    elo.f <- list (players = players, datetime = range(elo$datetime,na.rm = T),
                    eloTable = elo)
     names (elo.f [[2]]) <- c('start', 'end'); class (elo.f) <- 'eloTable'
     return (elo.f)
