@@ -28,7 +28,7 @@
 
 eloTable <- function (interData, initial = 1000, ...){
     if (class (interData) != 'interData') {
-        warning ('object not of class "interData"')
+        stop ('object not of class "interData"')
     }
     df.int <- interData [[2]]; players <- interData [[1]]
     elo <- data.frame (player = players, score = initial, 

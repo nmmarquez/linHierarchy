@@ -31,7 +31,7 @@
 
 extractScores <- function (eloTab, datetime = Sys.time(), ...){
     if (class (eloTab) != 'eloTable') {
-        warning ('Object not of class "eloTable"')
+        stop ('Object not of class "eloTable"')
     }
     tObj <- as.POSIXct (datetime, ...)
     until <- subset (eloTab [[3]], datetime <= tObj)
