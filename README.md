@@ -5,9 +5,9 @@ Linear Hierarchy Package for R
 
 The Linear Hierarchy package contains functions for analyzing dyadic
 interactions of a group of individuals and generating a score for
-individuals to be used in subsequent analysis. There are several differnet
-scoring algorithms that may be parameterized accordingly in order to generate
-player scores to the users liking. 
+individuals (players) to be used in subsequent analysis. There are several different
+scoring algorithms within the package that may be differentially parameterized
+in order to generate player ratings. 
 
 Current development plans include the implementation of the following player 
 rating algorithms:
