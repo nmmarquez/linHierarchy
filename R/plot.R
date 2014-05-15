@@ -10,7 +10,10 @@ plot.eloTable <- function (eloTab, start.time = eloTab [[2]] [1],
                            end.time = eloTab [[2]] [2], 
                            players = eloTab [[1]], 
                            pcol = 1:length (eloTab [[1]]), ...){
-    start.time <- as.POSIXct (start.time); end.time <- as.POSIXct (end.time)
+    if (!any (grepl ("POSIX",  class (start.time))) | 
+        !any (grepl ("POSIX",  class (end.time)))){
+        stop ("Start and end time must be of POSIX class")
+    }
     dEloTab <- subset(eloTab[[3]], 
                       datetime >= start.time & datetime <= end.time)
     wEloTab <- dEloTab [dEloTab$player %in% players,]

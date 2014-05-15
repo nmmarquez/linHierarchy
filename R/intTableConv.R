@@ -3,7 +3,8 @@
 #' The function takes a dataframe with either 4 or 5 columns and converts it to
 #' an interData object to be used for analysis in functions in this package.
 #' @param df data frame with 4 columns as described in the details.
-#' @param ... further arguments to be passed to or from other methods.
+#' @param ... arguments to be passed to the as.POSIXct function for
+#' converting time data
 #' @details The columns of the data frame being passed to this function should
 #' be as follows:
 #' 
@@ -19,8 +20,8 @@
 #'     
 #'     >  0 if the outcome was a tie
 #'     
-#' - column 4: a vector to be coerced to the class POSIXct denoting the time of
-#' the interaction/game
+#' - column 4: a vector to be coerced to the class POSIXct by the as.POSIXct function
+#'  denoting the time of the interaction/game
 #' @return an object of class interData
 #' @examples
 #' # generate generic data

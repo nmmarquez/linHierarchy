@@ -6,9 +6,9 @@
 #' 
 #' @param eloTab an object of the class "eloTable" from which ratings are to be
 #' extracted.
-#' @param datetime an element to be coerced to the class "POSIXct" for which
+#' @param tObj an element of the class "POSIXct" for which
 #' only scores occuring prior to within the eloTable will be used.
-#' @param ... further arguments to be passed to or from other methods.
+#' @param players A character list of players for which scores are obtained
 #' @details Using the datetime parameter as a cieling for elo ratings this
 #' function will return the latest rating for each player in the eloTable
 #' object which has occured on or before that time. If no score has occured
@@ -26,17 +26,21 @@
 #' et1 <- eloTable (id1)
 #' # get latest scores
 #' extractScores (et1)
-#' extractScores (t1, '01/01/1988', format = "%m/%d/%Y")
+#' extractScores (et1, tObj = as.POSIXct ('1/2/89', format = '%m/%d/%y'))
 #' @export
 
-extractScores <- function (eloTab, datetime = Sys.time(), ...){
+extractScores <- function (eloTab, tObj = Sys.time(),
+                           players = eloTab [['players']]){
     if (class (eloTab) != 'eloTable') {
         stop ('Object not of class "eloTable"')
     }
-    tObj <- as.POSIXct (datetime, ...)
+    if (!any (grepl ("POSIX",  class (tObj)))){
+        stop ("datetime must be of POSIX class")
+    }
     until <- subset (eloTab [[3]], datetime <= tObj)
     nas <- eloTab [[3]] [!complete.cases (eloTab [[3]]),]
     wEloTab <- rbind (nas, until)
     latElo <- wEloTab [!duplicated (wEloTab$player, fromLast = T),]
-    latElo [sort (-latElo$score),]
+    sLatElo <-latElo [latElo$player %in% players,]
+    sLatElo [order (-sLatElo$score),]
 }

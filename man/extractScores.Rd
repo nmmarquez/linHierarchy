@@ -3,16 +3,16 @@
 \alias{extractScores}
 \title{Get the latest scores from an eloTable object until specified time}
 \usage{
-extractScores(eloTab, datetime = Sys.time(), ...)
+extractScores(eloTab, tObj = Sys.time(), players = eloTab[["players"]])
 }
 \arguments{
 \item{eloTab}{an object of the class "eloTable" from which ratings are to be
 extracted.}
 
-\item{datetime}{an element to be coerced to the class "POSIXct" for which
+\item{tObj}{an element of the class "POSIXct" for which
 only scores occuring prior to within the eloTable will be used.}
 
-\item{...}{further arguments to be passed to or from other methods.}
+\item{players}{A character list of players for which scores are obtained}
 }
 \value{
 A data frame containing the latest rating for each player up to the
@@ -40,6 +40,6 @@ id1 <- intTableConv (interactions, format = '\%m/\%d/\%y')
 et1 <- eloTable (id1)
 # get latest scores
 extractScores (et1)
-extractScores (t1, '01/01/1988', format = "\%m/\%d/\%Y")
+extractScores (t1, tObj = as.POSIXct ('1/2/89', format = '\%m/\%d/\%y'))
 }
 

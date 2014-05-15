@@ -8,7 +8,8 @@ intTableConv(df, ...)
 \arguments{
 \item{df}{data frame with 4 columns as described in the details.}
 
-\item{...}{further arguments to be passed to or from other methods.}
+\item{...}{arguments to be passed to or the as.POSIXct function for
+converting time data}
 }
 \value{
 an object of class interData
@@ -33,8 +34,8 @@ be as follows:
 
     >  0 if the outcome was a tie
 
-- column 4: a vector to be coerced to the class POSIXct denoting the time of
-the interaction/game
+- column 4: a vector to be coerced to the class POSIXct by the as.POSIXct function
+ denoting the time of the interaction/game
 }
 \examples{
 # generate generic data
