@@ -8,7 +8,7 @@ intTableConv(df, ...)
 \arguments{
 \item{df}{data frame with 4 columns as described in the details.}
 
-\item{...}{arguments to be passed to or the as.POSIXct function for
+\item{...}{arguments to be passed to the as.POSIXct function for
 converting time data}
 }
 \value{

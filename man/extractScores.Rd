@@ -40,6 +40,7 @@ id1 <- intTableConv (interactions, format = '\%m/\%d/\%y')
 et1 <- eloTable (id1)
 # get latest scores
 extractScores (et1)
-extractScores (t1, tObj = as.POSIXct ('1/2/89', format = '\%m/\%d/\%y'))
+# only scores before '1/2/89'
+extractScores (et1, tObj = as.POSIXct ('1/2/89', format = '\%m/\%d/\%y'))
 }
 

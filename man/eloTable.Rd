@@ -13,7 +13,7 @@ eloTable(interData, initial = 1000, ...)
 \item{...}{further arguments to be passed to or from other methods.}
 }
 \value{
-An object of the class eloTable which contains a list of players
+An object of the class eloTable which contains a vector of players
 in the graoup, the time range of interactions, and a data frame sorted by
 time containing any changes in an individuals elo rating.
 }

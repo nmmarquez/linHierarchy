@@ -11,7 +11,7 @@
 #' element of interData. Further arguments are passed to the findK and 
 #' singleOutcome functions and include the paramters; kScaleBounds, kFactors,
 #' and minTresh.
-#' @return An object of the class eloTable which contains a list of players
+#' @return An object of the class eloTable which contains a vector of players
 #' in the graoup, the time range of interactions, and a data frame sorted by
 #' time containing any changes in an individuals elo rating.
 #' @examples 

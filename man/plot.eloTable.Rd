@@ -8,11 +8,46 @@
   pcol = 1:length(eloTab[[1]]), ...)
 }
 \arguments{
-\item{eloTab}{object of the class "eloTable"}
+\item{eloTab}{object of the class "eloTable" to build a plot with.}
+
+\item{start.time}{object of the class "POSIXct" for whcih only scores
+occuring after this time are graphed.}
+
+\item{end.time}{object of the class "POSIXct" for whcih only scores
+occuring before this time are graphed.}
+
+\item{players}{character indicating the players in eloTab to graph}
+
+\item{pcol}{vector of length equal to the players argument that
+correspond to the colors to be used in the visualization for each player.}
+
+\item{...}{additional parameters to be passed to plotting functions}
 }
 \description{
 Using the player elo ratings of an "eloTable" object, plots a time series
 graph showing changes in individuals scores. Specified players must have
 at least one score in the specified time range.
+}
+\details{
+Plotting an eloTable object builds a time series line graph for
+each player across the range of dates in the eloTable. The players and
+dates used may be adjusted as well as the colors to be used. Additional
+paramters may be used to pass arguments to the plot.xy, lines and
+legend functions.
+}
+\examples{
+# generate generic data
+interactions <- data.frame (p1 = c('i', 'j', 'i'), p2 = c('j', 'h', 'h'),
+                            o = 1, d = c ('1/1/89', '1/3/89', '1/2/89'))
+# convert to interData object
+id1 <- intTableConv (interactions, format = '\%m/\%d/\%y')
+# produce eloTable object
+et1 <- eloTable (id1)
+# plot all scores
+plot (et1)
+# plot only one player
+plot (et1, players = "j", pcol = "green")
+# plot only scores before '1/2/89'
+plot (et1, end.time = as.POSIXct ('1/2/89', format = '\%m/\%d/\%y'))
 }
 

@@ -26,16 +26,17 @@
 #' et1 <- eloTable (id1)
 #' # get latest scores
 #' extractScores (et1)
+#' # only scores before '1/2/89'
 #' extractScores (et1, tObj = as.POSIXct ('1/2/89', format = '%m/%d/%y'))
 #' @export
 
 extractScores <- function (eloTab, tObj = Sys.time(),
                            players = eloTab [['players']]){
     if (class (eloTab) != 'eloTable') {
-        stop ('Object not of class "eloTable"')
+        stop ('eloTab must be of class "eloTable"')
     }
     if (!any (grepl ("POSIX",  class (tObj)))){
-        stop ("datetime must be of POSIX class")
+        stop ("tObj must be of POSIX class")
     }
     until <- subset (eloTab [[3]], datetime <= tObj)
     nas <- eloTab [[3]] [!complete.cases (eloTab [[3]]),]

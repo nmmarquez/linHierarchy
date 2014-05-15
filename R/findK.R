@@ -20,8 +20,8 @@
 #' - A score above 2400 the the kFactor assigned is 16
 #' @note In order to ensure a proper function call the kScaleBounds
 #' parameter must be sorted from least to greatest and must be of a length
-#' 1 greater than the kFactors parameter. In addition assigning the first
-#' element of kScaleBounds to -Inf and the last to Inf will allow the
+#' 1 greater than the length of the kFactors parameter. In addition assigning
+#' the first element of kScaleBounds to -Inf and the last to Inf will allow the
 #' players score to always remain within an acceptable range.
 #' @examples
 #' # generic function calls
