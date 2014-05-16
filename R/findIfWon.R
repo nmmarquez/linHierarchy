@@ -13,8 +13,8 @@
 #' @return logical indicating the wether the player won or not
 #' @export
 
-findIfWon = function (subject, intData, row){
-    intDF = intData [['outcome']]
+findIfWon <- function (subject, intData, row){
+    intDF <- intData [['interactions']]
     if (subject == intDF [row, 1]){
         return (intDF [row, 3] == 1)
     }

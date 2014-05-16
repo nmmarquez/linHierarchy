@@ -39,7 +39,6 @@ eloTable <- function (interData, initial = 1000, ...){
         sc1 <- tail (elo$score [elo$player == p1], 1) # player 1's old score
         sc2 <- tail (elo$score [elo$player == p2], 1) # player 2's old score
         k1 <- findK (sc1, ...); k2 <- findK (sc2, ...) # get k factors
-        
         if (sc1 >= sc2){
             elo [n+1,'player'] <- p1; elo [n+1, 'datetime'] <- time
             elo [n+1,'score'] <- singleOutcome (sc1, sc2, out, k1, k2, ...) [1]

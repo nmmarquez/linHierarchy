@@ -41,6 +41,7 @@ intTableConv <- function (df, ...){
         warning ("Outcomes are not formatted properly")
     }
     df.int <- df.int [order (df.int [,4], runif (nrow (df.int))),]
+    row.names (df.int) <- 1:nrow (df.int)
     players <- unique (c(df.int$player.1, df.int$player.2))
     intList <- list (players = players, interactions = df.int)
     class (intList) <- "interData"
