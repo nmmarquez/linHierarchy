@@ -18,16 +18,18 @@
 #' datetime parameter as well as the time which that rating was last updated.
 #' @examples 
 #' # generate generic data
-#' interactions <- data.frame (p1 = c('i', 'j', 'i'), p2 = c('j', 'h', 'h'),
-#'                             o = 1, d = c ('1/1/89', '1/3/89', '1/2/89'))
+#' interactions <- data.frame (a = sample (letters [1:10], 100, T),
+#'                             b = sample (letters [1:10], 100, T),
+#'                             o = sample (c(-1,-1,0,1,1), 100, T), 
+#'                             d = Sys.time () + runif (100, 40, 160))
 #' # convert to interData object
-#' id1 <- intTableConv (interactions, format = '%m/%d/%y')
+#' id1 <- intTableConv (interactions)
 #' # produce eloTable object
 #' et1 <- eloTable (id1)
 #' # get latest scores
 #' extractScores (et1)
-#' # only scores before '1/2/89'
-#' extractScores (et1, tObj = as.POSIXct ('1/2/89', format = '%m/%d/%y'))
+#' # only scores before median
+#' extractScores (et1, tObj = median (et1$eloTable$datetime, na.rm = T))
 #' @export
 
 extractScores <- function (eloTab, tObj = Sys.time(),

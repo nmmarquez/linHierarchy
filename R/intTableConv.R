@@ -25,10 +25,12 @@
 #' @return an object of class interData
 #' @examples
 #' # generate generic data
-#' interactions <- data.frame (p1 = c('i', 'j', 'i'), p2 = c('j', 'h', 'h'),
-#'                             o = 1, d = c ('1/1/89', '1/3/89', '1/2/89'))
+#' interactions <- data.frame (a = sample (letters [1:10], 100, T),
+#'                             b = sample (letters [1:10], 100, T),
+#'                             o = sample (c(-1,-1,0,1,1), 100, T), 
+#'                             d = Sys.time () + runif (100, 40, 160))
 #' # convert to interData object
-#' intTableConv (interactions, format = '%m/%d/%y')
+#' intTableConv (interactions)
 #' @export
 
 intTableConv <- function (df, ...){

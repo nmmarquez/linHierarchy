@@ -17,7 +17,15 @@ Numeric value reflecting the percentage of time pi beat pj where
 there was a clear winner. (i.e. no tie)
 }
 \description{
+Calculates the percentage of games player i (pi) won over
+player j (pj) across the interData object. Ties are disregarded in this
+calculation as per the methods described in Gammel et al. 2003
+}
+\details{
 Given two players in interaction data finds the percentage for
 winning of the first player over of the seconed.
+}
+\references{
+Gammel et al. (2003) David's Score. Animal Behaviour
 }
 

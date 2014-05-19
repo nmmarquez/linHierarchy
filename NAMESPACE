@@ -3,6 +3,7 @@
 S3method(plot,eloTable)
 S3method(print,eloTable)
 export(Pij)
+export(calcW)
 export(eloTable)
 export(extractScores)
 export(findIfWon)

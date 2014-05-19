@@ -7,6 +7,10 @@
 #' @param intData object of class "interData" where pi and pj are players
 #' @return Numeric value reflecting the percentage of time pi beat pj where
 #' there was a clear winner. (i.e. no tie)
+#' @description Calculates the percentage of games player i (pi) won over 
+#' player j (pj) across the interData object. Ties are disregarded in this 
+#' calculation as per the methods described in Gammel et al. 2003
+#' @references Gammel et al. (2003) David's Score. Animal Behaviour
 #' @export
 
 Pij <- function (pi, pj, intData){

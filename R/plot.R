@@ -8,10 +8,20 @@
 #' occuring after this time are graphed.
 #' @param end.time object of the class "POSIXct" for whcih only scores
 #' occuring before this time are graphed.
-#' @param players character indicating the players in eloTab to graph
-#' @param pcol vector of length equal to the players argument that
+#' @param players character indicating the players in eloTab to graph.
+#' @param col vector of length equal to the players argument that
 #' correspond to the colors to be used in the visualization for each player.
-#' @param ... additional parameters to be passed to plotting functions
+#' @param xlab a label for the x axis, defaults to "Time".
+#' @param ylab a label for the y axis, defaults to "Rating".
+#' @param main a main title for the plot.
+#' @param xlim the x limits (x1, x2) of the plot. Note that x1 > x2 is allowed
+#' and leads to a ‘reversed axis’.
+#' @param ylim the y limits of the plot.
+#' @param lty,lwd the line types and widths for lines appearing in the legend.
+#' @param legend.pos the position of the legend on the graph
+#' @param bty the type of box to be drawn around the legend. The allowed values
+#' are "o" (the default) and "n".
+#' @param ... additional parameters to be passed to the base plot function.
 #' @details Plotting an eloTable object builds a time series line graph for 
 #' each player across the range of dates in the eloTable. The players and
 #' dates used may be adjusted as well as the colors to be used. Additional
@@ -19,24 +29,32 @@
 #' legend functions.
 #' @examples 
 #' # generate generic data
-#' interactions <- data.frame (p1 = c('i', 'j', 'i'), p2 = c('j', 'h', 'h'),
-#'                             o = 1, d = c ('1/1/89', '1/3/89', '1/2/89'))
+#' interactions <- data.frame (a = sample (letters [1:10], 100, T),
+#'                             b = sample (letters [1:10], 100, T),
+#'                             o = sample (c(-1,-1,0,1,1), 100, T), 
+#'                             d = Sys.time () + runif (100, 40, 160))
 #' # convert to interData object
-#' id1 <- intTableConv (interactions, format = '%m/%d/%y')
+#' id1 <- intTableConv (interactions)
 #' # produce eloTable object
 #' et1 <- eloTable (id1)
 #' # plot all scores
 #' plot (et1)
-#' # plot only one player
-#' plot (et1, players = "j", pcol = "green")
-#' # plot only scores before '1/2/89'
-#' plot (et1, end.time = as.POSIXct ('1/2/89', format = '%m/%d/%y'))
+#' # plot only three players
+#' plot (et1, players = et1$players [1:3], lty = 3, lwd = 5)
+#' # plot only scores before median
+#' plot (et1, end.time = median (et1$eloTable$datetime, na.rm = T), lty = 6,
+#'       main = 'Elo Rating up to Median Date', legend.pos = "bottomleft")
 #' @export
 
 plot.eloTable <- function (eloTab, start.time = eloTab [[2]] [1],
                            end.time = eloTab [[2]] [2], 
                            players = eloTab [[1]], 
-                           pcol = 1:length (eloTab [[1]]), ...){
+                           col = 1:length (eloTab [[1]]),
+                           xlab = "Time", ylab = "Rating",
+                           main = 'Elo Rating Across Time',
+                           xlim = range (wEloTab$datetime),
+                           ylim = range (wEloTab$score), lty = 1, lwd = 1, 
+                           legend.pos = 'topleft', bty = 'o', ...){
     if (!any (grepl ("POSIX",  class (start.time))) | 
         !any (grepl ("POSIX",  class (end.time)))){
         stop ("Start and end time must be of POSIX class")
@@ -48,12 +66,11 @@ plot.eloTable <- function (eloTab, start.time = eloTab [[2]] [1],
         stop ("The following players have no data during this time period",
               players [!(players %in% wEloTab$player)])
     }
-    plot (wEloTab$datetime, wEloTab$score, xlim = range (wEloTab$datetime),
-          ylim = range (wEloTab$score), xlab = "Time", ylab = "Rating",
-          type = 'n', main = 'Elo Rating Across Time', ...)
+    plot (wEloTab$datetime, wEloTab$score, type = 'n', xlab= xlab, ylab = ylab,
+          xlim = xlim, ylim = ylim, main = main, ...)
     for (i in 1:length (players)){
         temp = subset (wEloTab, player == players [i])
-        lines (temp$datetime, temp$score, type = 'l', col = pcol [i], ...)
+        lines (temp$datetime, temp$score, col = col [i], lty = lty, lwd = lwd)
     }
-    legend ('topleft', players, col = pcol, lty = 1, ...)
+    legend (legend.pos, players, col = col, lty = lty, lwd = lwd, bty = bty)
 }
