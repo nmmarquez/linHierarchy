@@ -11,8 +11,21 @@ calcW(player, intData)
 \item{intData}{an object of class "interData" which contains the players
 interactions.}
 }
+\value{
+w a sum of individuals Pij percentages.
+}
 \description{
+Calculates the w paramter of the Davids score algorithim. W is
+calculated as the sum of all individuals Pij percentages where i is the
+individual for which w is associated and and j is all other players in the
+interData object. Ties are disregarded in this
+calculation as per the methods described in Gammel et al. 2003
+}
+\details{
 Find the 'w' paramter of the David's score algorithim for the associated
 player defined in the player argument
+}
+\references{
+Gammel et al. (2003) David's Score. Animal Behaviour
 }
 

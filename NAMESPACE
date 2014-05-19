@@ -2,6 +2,7 @@
 
 S3method(plot,eloTable)
 S3method(print,eloTable)
+S3method(print,interData)
 export(Pij)
 export(calcW)
 export(eloTable)

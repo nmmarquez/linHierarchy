@@ -5,6 +5,13 @@
 #' @param player in the "interData" object of which to find the 'w' parameter
 #' @param intData an object of class "interData" which contains the players 
 #' interactions.
+#' @description Calculates the w paramter of the Davids score algorithim. W is
+#' calculated as the sum of all individuals Pij percentages where i is the
+#' individual for which w is associated and and j is all other players in the 
+#' interData object. Ties are disregarded in this 
+#' calculation as per the methods described in Gammel et al. 2003
+#' @references Gammel et al. (2003) David's Score. Animal Behaviour
+#' @return w a sum of individuals Pij percentages. 
 #' @export
 
 calcW <- function (player, intData){
