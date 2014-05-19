@@ -25,6 +25,17 @@ calculation as per the methods described in Gammel et al. 2003
 Given two players in interaction data finds the percentage for
 winning of the first player over of the seconed.
 }
+\examples{
+# generate generic data
+interactions <- data.frame (a = sample (letters [1:10], 100, T),
+                            b = sample (letters [1:10], 100, T),
+                            o = sample (c(-1,-1,0,1,1), 100, T),
+                            d = Sys.time () + runif (100, 40, 160))
+# convert to interData object
+id1 <- intTableConv (interactions)
+# find Pij betweeen two players in group
+Pij (id1$players [1], id1$players [2], id1)
+}
 \references{
 Gammel et al. (2003) David's Score. Animal Behaviour
 }
