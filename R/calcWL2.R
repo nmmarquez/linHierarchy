@@ -44,11 +44,11 @@ calcWL2 <- function (player, intData, param = 'w'){
     
     if (param == 'w'){
         sum (sapply (opp, function (x) Pij (player, x, intData) * 
-                         calcWL (x, intData)))
+                         calcW (x, intData)))
     }
     
     else if (param == 'l'){
-        sum (sapply (opp, function (x) (1 - Pij (player, x, intData)) * 
-                         calcWL (x, intData, 'l')))
+        sum (sapply (opp, function (x) if (numInt (x, player, intData) == 0) {0}
+                     else {(1 - Pij(player, x, intData)) * calcL (x, intData)}))
     }
 }

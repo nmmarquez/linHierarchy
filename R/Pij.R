@@ -27,9 +27,6 @@ Pij <- function (pi, pj, intData){
     if (!(pi %in% intData [[1]]) | !(pj %in% intData [[1]])){
         stop ('Either Player 1 or 2 not in interData Object')
     }
-    if (pi == pj){
-        stop ('Player 1 can not be the same as Player 2')
-    }
     if (class (intData) != 'interData'){
         stop ('intData argument must be of the class "interData"')
     }

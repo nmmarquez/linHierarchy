@@ -62,8 +62,8 @@ plot.eloTable <- function (eloTab, start.time = eloTab [[2]] [1],
     dEloTab <- subset(eloTab[[3]], 
                       datetime >= start.time & datetime <= end.time)
     wEloTab <- dEloTab [dEloTab$player %in% players,]
-    if (!any (players %in% wEloTab$player)){
-        stop ("The following players have no data during this time period",
+    if (!all (players %in% wEloTab$player)){
+        warning ("The following players have no data during this time period",
               players [!(players %in% wEloTab$player)])
     }
     plot (wEloTab$datetime, wEloTab$score, type = 'n', xlab= xlab, ylab = ylab,

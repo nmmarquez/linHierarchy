@@ -13,7 +13,7 @@
 #' function will return the latest rating for each player in the eloTable
 #' object which has occured on or before that time. If no score has occured
 #' prior to the specified time than the initial score is returned for that
-#' player with a value of NA for the time. 
+#' player with a value of NA for the time.
 #' @return A data frame containing the latest rating for each player up to the
 #' datetime parameter as well as the time which that rating was last updated.
 #' @examples 
