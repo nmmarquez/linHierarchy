@@ -30,13 +30,9 @@
 #' @export
 
 calcWL2 <- function (player, intData, param = 'w'){
-    if (!(player %in% intData [['players']])){
-        stop ('Player not in interData object.')
-    }
-    else if (class (intData) != 'interData'){
-        stop ('intData argument must be of the class "interData"')
-    }
-    else if (!(param == 'w' | param == 'l')){
+    idError (intData); plyrError (player, intData)
+    
+    if (!(param == 'w' | param == 'l')){
         stop ('The param argument must either be "w" or "l"')
     }
     

@@ -3,7 +3,8 @@
 \alias{extractScores}
 \title{Get the latest scores from an eloTable object until specified time}
 \usage{
-extractScores(eloTab, tObj = Sys.time(), players = eloTab[["players"]])
+extractScores(eloTab, tObj = eloTab$datetime["end"],
+  players = eloTab[["players"]])
 }
 \arguments{
 \item{eloTab}{an object of the class "eloTable" from which ratings are to be

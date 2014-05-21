@@ -3,7 +3,7 @@
 \alias{toInterMat}
 \title{Convert interData object to interaction matrix}
 \usage{
-toInterMat(intData, players = intData$players)
+toInterMat(intData)
 }
 \arguments{
 \item{intData}{object of class "interData" to build the matrix}

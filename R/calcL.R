@@ -23,16 +23,11 @@
 #' # find l of player in group
 #' calcL (id1$players [1], id1)
 #' @export
-
+#' 
 calcL <- function (player, intData){
-    if (!(player %in% intData [['players']])){
-        stop ('Player not in interData object.')
-    }
-    else if (class (intData) != 'interData'){
-        stop ('intData argument must be of the class "interData"')
-    }
+    idError (intData); plyrError (player, intData)
     
     opp <- intData [['players']] [intData [['players']] != player]
-    sum (sapply (opp, function (x) if (numInt (x, player, intData) == 0) {0}
-                 else {1 - Pij (player, x, intData)}))
+    
+    sum (sapply (opp, function (x) Pij (x, player, intData)))
 }

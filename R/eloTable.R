@@ -30,7 +30,7 @@
 
 eloTable <- function (intData, initial = 1000, ...){
     idError (intData)
-    df.int <- intData [[2]]; players <- intData [[1]]
+    df.int <- intData [[3]]; players <- intData [[1]]
     elo <- data.frame (player = players, score = initial, 
                        datetime = as.POSIXct (NA), stringsAsFactors = F)
     for (i in 1:nrow (df.int)){

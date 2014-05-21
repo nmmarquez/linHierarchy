@@ -3,10 +3,10 @@
 \alias{eloTable}
 \title{Generate a series of elo ratings from interaction data}
 \usage{
-eloTable(interData, initial = 1000, ...)
+eloTable(intData, initial = 1000, ...)
 }
 \arguments{
-\item{interData}{an onject of class "interData".}
+\item{intData}{an onject of class "interData".}
 
 \item{initial}{the starting score for all participants in the group.}
 
@@ -25,7 +25,7 @@ ratings up until the latest interaction in the interData object.
 Using the methods described in Neumann et al 2011. a series of Elo
 ratings are generated from interaction data. Initial scores may either be a
 single numeric value or a vector of integers correspong to the players
-element of interData. Further arguments are passed to the findK and
+element of intData. Further arguments are passed to the findK and
 singleOutcome functions and include the paramters; kScaleBounds, kFactors,
 and minTresh.
 }

@@ -6,8 +6,8 @@
 #' @export
 
 idError <- function (obj, class = 'interData'){
-    if (class (obj) != 'interData'){
-        stop (deparse (substitute (obj)) ,' argument must be of the class ', 
+    if (class (obj) != class){
+        stop (deparse (substitute (obj)), ' argument must be of the class ', 
               class)
     }
 }

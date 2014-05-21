@@ -17,5 +17,6 @@
 
 print.interData <- function (interData){
     print (interData [1]);
-    print (head (na.omit (interData [[2]])))
+    print (interData [2])
+    print (head (na.omit (interData [[3]])))
 }

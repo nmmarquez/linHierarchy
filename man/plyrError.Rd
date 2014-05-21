@@ -11,6 +11,6 @@ plyrError(players, intData)
 \item{intData}{an object of class "interData"}
 }
 \description{
-Error if player not in "interData" object
+Error if any player in players not in "interData" object
 }
 

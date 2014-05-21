@@ -23,12 +23,7 @@
 #' @export
 
 numInt <- function (p1, p2, intData, includeDraws = F, showInteractions = F){
-    if (!(p1 %in% intData [[1]]) | !(p2 %in% intData [[1]])){
-        stop ('Either Player 1 or 2 not in interData Object')
-    }
-    else if (class (intData) != 'interData'){
-        stop ('intData argument must be of the class "interData"')
-    }
+    idError (intData); plyrError (c(p1, p2), intData)
     
     if (includeDraws){
         ints <- subset(intData$interactions, (player.1 == p1 | player.2 == p1) &
@@ -36,6 +31,7 @@ numInt <- function (p1, p2, intData, includeDraws = F, showInteractions = F){
         if (showInteractions) {return (ints)}
         else {return (nrow (ints))}
     }
+    
     else if (!includeDraws){
         ints <- subset(intData$interactions, (player.1 == p1 | player.2 == p1) &
                           (player.1 == p2 | player.2 == p2) & outcome != 0)

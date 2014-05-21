@@ -3,17 +3,14 @@
 \alias{davidScore}
 \title{Calculate the David's Score of players}
 \usage{
-davidScore(intData, players = intData$players)
+davidScore(intData)
 }
 \arguments{
 \item{intData}{object of class "interData" to calculate scores.}
-
-\item{players}{the players in the interactions to use for calculation
-algorithm.}
 }
 \value{
 A 2 column data frame specifying the players used in the algorithm
-sorted by their correspong david's score.
+sorted by their corresponding david's score.
 }
 \description{
 Calculates the David's Score of players in an "interData" object.
@@ -34,8 +31,6 @@ interactions <- data.frame (a = sample (letters [1:10], 100, T),
 id1 <- intTableConv (interactions)
 # calculate using all players
 davidScore (id1)
-# calculate using only the first five players scores
-davidScore (id1, id1$players [1:5])
 }
 \references{
 Gammel et al. (2003) David's Score. Animal Behaviour

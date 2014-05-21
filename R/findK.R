@@ -48,7 +48,7 @@ findK <- function (playerScore,kScaleBounds =c(-Inf, Inf),kFactors = 100, ...){
     else{
         for (i in 1:length (bounds) - 1){
             if (playerScore > bounds [i] && playerScore <= bounds [i + 1]) {
-                assignedK = kFactors [i]
+                assignedK <- kFactors [i]
                 break
             }
         }

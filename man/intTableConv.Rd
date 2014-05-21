@@ -12,7 +12,10 @@ intTableConv(df, ...)
 converting time data}
 }
 \value{
-an object of class interData
+a list like object of class interData with three elements
+- element 1: character of players in the interactions
+- element 2: range of time that the data frame encompasses
+- element 3: data frame with the players interactions, outcome, and date
 }
 \description{
 The function takes a dataframe with either 4 or 5 columns and converts it to

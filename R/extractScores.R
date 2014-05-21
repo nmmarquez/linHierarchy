@@ -32,14 +32,14 @@
 #' extractScores (et1, tObj = median (et1$eloTable$datetime, na.rm = T))
 #' @export
 
-extractScores <- function (eloTab, tObj = Sys.time(),
+extractScores <- function (eloTab, tObj = eloTab$datetime ['end'],
                            players = eloTab [['players']]){
-    if (class (eloTab) != 'eloTable') {
-        stop ('eloTab must be of class "eloTable"')
-    }
+    idError (eloTab, "eloTable"); plyrError (players, eloTab);
+    
     if (!any (grepl ("POSIX",  class (tObj)))){
         stop ("tObj must be of POSIX class")
     }
+    
     until <- subset (eloTab [[3]], datetime <= tObj)
     nas <- eloTab [[3]] [!complete.cases (eloTab [[3]]),]
     wEloTab <- rbind (nas, until)

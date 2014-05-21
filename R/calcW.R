@@ -25,13 +25,9 @@
 #' @export
 
 calcW <- function (player, intData){
-    if (!(player %in% intData [['players']])){
-        stop ('Player not in interData object.')
-    }
-    else if (class (intData) != 'interData'){
-        stop ('intData argument must be of the class "interData"')
-    }
+    idError (intData); plyrError (player, intData)
     
     opp <- intData [['players']] [intData [['players']] != player]
+    
     sum (sapply (opp, function (x) Pij (player, x, intData)))
 }
