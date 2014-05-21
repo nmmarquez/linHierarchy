@@ -3,6 +3,7 @@
 S3method(plot,eloTable)
 S3method(print,eloTable)
 S3method(print,interData)
+S3method(subset,interData)
 export(Pij)
 export(calcL)
 export(calcW)

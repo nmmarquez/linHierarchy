@@ -24,18 +24,15 @@
 
 numInt <- function (p1, p2, intData, includeDraws = F, showInteractions = F){
     idError (intData); plyrError (c(p1, p2), intData)
+    ints <- subset (intData, players = c(p1, p2))$interactions
     
     if (includeDraws){
-        ints <- subset(intData$interactions, (player.1 == p1 | player.2 == p1) &
-                          (player.1 == p2 | player.2 == p2))
         if (showInteractions) {return (ints)}
         else {return (nrow (ints))}
     }
     
     else if (!includeDraws){
-        ints <- subset(intData$interactions, (player.1 == p1 | player.2 == p1) &
-                          (player.1 == p2 | player.2 == p2) & outcome != 0)
-        if (showInteractions) {return (ints)}
-        else {return (nrow (ints))}
+        if (showInteractions) {return (ints [ints$outcome != 0,])}
+        else {return (nrow (ints [ints$outcome != 0,]))}
     }
 }

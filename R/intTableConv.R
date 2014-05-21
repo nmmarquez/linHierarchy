@@ -26,6 +26,9 @@
 #' - element 1: character of players in the interactions  
 #' - element 2: range of time that the data frame encompasses  
 #' - element 3: data frame with the players interactions, outcome, and date
+#' @note Interactions where player.1 is equal to player.2 are automatically
+#' removed as no algorithm takes into account what to do when a player plays
+#' against themself.
 #' @examples
 #' # generate generic data
 #' interactions <- data.frame (a = sample (letters [1:10], 100, T),
@@ -48,10 +51,11 @@ intTableConv <- function (df, ...){
     }
     
     df.int <- df.int [order (df.int [,4], runif (nrow (df.int))),]
-    row.names (df.int) <- 1:nrow (df.int)
+    if (nrow (df.int) > 0) {row.names (df.int) <- 1:nrow (df.int)}
     players <- unique (c(df.int$player.1, df.int$player.2))
-    intList <- list (players = as.character (players), 
-                     datetime = range (df.int$datetime), interactions = df.int)
+    intList <- suppressWarnings (list (players = as.character (players), 
+                                       datetime = range (df.int$datetime), 
+                                       interactions = df.int))
     names (intList [['datetime']]) <- c('start', 'end')
     class (intList) <- "interData"
     return (intList)

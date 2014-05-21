@@ -9,16 +9,16 @@ toInterMat(intData)
 \item{intData}{object of class "interData" to build the matrix}
 }
 \value{
-a matrix like object of class "interMat"
+a matrix indicating player wins
 
-a matrix like object of class "interMat"
+a matrix of player wins
 }
 \description{
-Creates a matrix of class "interMat" cataloging the wins between players in
+Creates a matrix cataloging the wins between players in
 an interData object.
 }
 \details{
-toInterMat creates a matrix like object which uses players from
+toInterMat creates a matrix which uses players from
 intData as row and column names. Each cell is given an integer value
 indicating the number of times the player indicated in the row won a dyadic
 interaction against the player indicted in the column. Ties are ignored for

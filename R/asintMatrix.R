@@ -1,15 +1,15 @@
 #' Convert interData object to interaction matrix
 #' 
-#' Creates a matrix of class "interMat" cataloging the wins between players in
+#' Creates a matrix cataloging the wins between players in
 #' an interData object.
 #' @param intData object of class "interData" to build the matrix
-#' @return a matrix like object of class "interMat"
-#' @details toInterMat creates a matrix like object which uses players from
+#' @return a matrix indicating player wins
+#' @details toInterMat creates a matrix which uses players from
 #' intData as row and column names. Each cell is given an integer value
 #' indicating the number of times the player indicated in the row won a dyadic
 #' interaction against the player indicted in the column. Ties are ignored for
 #' this calculation.
-#' @return a matrix like object of class "interMat"
+#' @return a matrix of player wins
 #' @examples
 #' # generate generic data
 #' interactions <- data.frame (a = sample (letters [1:10], 100, T),

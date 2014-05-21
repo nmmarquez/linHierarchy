@@ -40,6 +40,11 @@ be as follows:
 - column 4: a vector to be coerced to the class POSIXct by the as.POSIXct function
  denoting the time of the interaction/game
 }
+\note{
+Interactions where player.1 is equal to player.2 are automatically
+removed as no algorithm takes into account what to do when a player plays
+against themself.
+}
 \examples{
 # generate generic data
 interactions <- data.frame (a = sample (letters [1:10], 100, T),

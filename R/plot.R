@@ -70,7 +70,8 @@ plot.eloTable <- function (eloTab, start.time = eloTab [[2]] [1],
           xlim = xlim, ylim = ylim, main = main, ...)
     for (i in 1:length (players)){
         temp = subset (wEloTab, player == players [i])
-        lines (temp$datetime, temp$score, col = col [i], lty = lty, lwd = lwd)
+        lines (temp$datetime, temp$score, col = rep (col, length (players)) [i], 
+               lty = lty, lwd = lwd)
     }
     legend (legend.pos, players, col = col, lty = lty, lwd = lwd, bty = bty)
 }
