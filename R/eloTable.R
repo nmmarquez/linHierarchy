@@ -2,13 +2,13 @@
 #' 
 #' Given an object of the class "interData" will produce a series of elo
 #' ratings up until the latest interaction in the interData object.
-#' @param interData an onject of class "interData".
+#' @param intData an onject of class "interData".
 #' @param initial the starting score for all participants in the group.
 #' @param ... further arguments to be passed to or from other methods.
 #' @details Using the methods described in Neumann et al 2011. a series of Elo
 #' ratings are generated from interaction data. Initial scores may either be a
 #' single numeric value or a vector of integers correspong to the players
-#' element of interData. Further arguments are passed to the findK and 
+#' element of intData. Further arguments are passed to the findK and 
 #' singleOutcome functions and include the paramters; kScaleBounds, kFactors,
 #' and minTresh.
 #' @return An object of the class eloTable which contains a vector of players
@@ -28,11 +28,9 @@
 #' Animal Behaviour
 #' @export
 
-eloTable <- function (interData, initial = 1000, ...){
-    if (class (interData) != 'interData') {
-        stop ('object not of class "interData"')
-    }
-    df.int <- interData [[2]]; players <- interData [[1]]
+eloTable <- function (intData, initial = 1000, ...){
+    idError (intData)
+    df.int <- intData [[2]]; players <- intData [[1]]
     elo <- data.frame (player = players, score = initial, 
                        datetime = as.POSIXct (NA), stringsAsFactors = F)
     for (i in 1:nrow (df.int)){

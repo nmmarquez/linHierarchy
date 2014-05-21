@@ -26,14 +26,7 @@
 #' @export
 
 davidScore <- function (intData, players = intData$players){
-    if (class (intData) != 'interData'){
-        stop ('intData argument must be of the class "interData"')
-    }
-    
-    else if (!all (players %in% intData$players)){
-        stop ('The following players are not in the interData Object',
-              players [!(players %in% intData$players)])
-    }
+    idError (intData); plyrError (players, intData)
     
     wdf <- subset (intData$interactions, player.1 %in% players &
                        player.2 %in% players)

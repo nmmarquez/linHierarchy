@@ -24,22 +24,21 @@
 #' @export
 
 Pij <- function (pi, pj, intData){
-    if (!(pi %in% intData [[1]]) | !(pj %in% intData [[1]])){
-        stop ('Either Player 1 or 2 not in interData Object')
-    }
-    if (class (intData) != 'interData'){
-        stop ('intData argument must be of the class "interData"')
-    }
+    idError (intData); plyrError (c(pi, pj), intData)
+
     intDF <- intData [[2]]
     subRows <- row.names (subset (intDF, (player.1 == pi | player.2 == pi) &
                          (player.1 == pj | player.2 == pj)))
+    
     if (nrow (subset (intDF [subRows,], outcome != 0)) == 0){
         return (0)
     }
+    
     else {
         alpha = sum (sapply (subRows, function(x) findIfWon(pi, intData, x)),
                      na.rm=T)
         n = nrow (subset (intDF [subRows,], outcome != 0))
     }
+    
     alpha/n
 }
