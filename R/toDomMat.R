@@ -24,7 +24,7 @@
 #' @export
 
 toDomMat <- function (intData){
-    idError (intData); intMat <- toInterMat (intData)
+    idError (intData); plyrs <- intData$players
     
     Pmat <- sapply (plyrs, function (x) 
         sapply (plyrs, function (y) Pij (y, x, intData)))
