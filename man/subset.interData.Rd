@@ -22,4 +22,17 @@ a "subset" interData object.
 Takes an "interData" object and subsets it so that it only includes
 interactions involving the specifed players within the specified time range.
 }
+\examples{
+# generate generic data
+interactions <- data.frame (a = sample (letters [1:10], 100, T),
+                            b = sample (letters [1:10], 100, T),
+                            o = sample (c(-1,-1,0,1,1), 100, T),
+                            d = Sys.time () + runif (100, 40, 160))
+# convert to interData object
+id1 <- intTableConv (interactions)
+# subset by players
+subset (id1, id1$players [-c(1,2)])
+#subset by time
+subset (id1, time.range = c(mean (id1$datetime), id1$datetime ['end']))
+}
 

@@ -8,6 +8,18 @@
 #' specifying the earliest time of which to consider iteractions and the last
 #' element specifying the latest time. 
 #' @return a "subset" interData object.
+#' @examples
+#' # generate generic data
+#' interactions <- data.frame (a = sample (letters [1:10], 100, T),
+#'                             b = sample (letters [1:10], 100, T),
+#'                             o = sample (c(-1,-1,0,1,1), 100, T), 
+#'                             d = Sys.time () + runif (100, 40, 160))
+#' # convert to interData object
+#' id1 <- intTableConv (interactions)
+#' # subset by players
+#' subset (id1, id1$players [-c(1,2)])
+#' #subset by time
+#' subset (id1, time.range = c(mean (id1$datetime), id1$datetime ['end']))
 #' @export
 
 subset.interData <- function (intData, players = intData$players, 
