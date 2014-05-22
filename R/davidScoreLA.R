@@ -22,14 +22,14 @@
 #' @export
 
 davidScore <- function (intData){
-    idError (intData)
+    idError (intData); plyrs <- intData$players
+    Pmat <- sapply (plyrs, function (x) 
+        sapply (plyrs, function (y) Pij (y, x, intData)))
     
-    DS <- data.frame (players = intData$players, score = as.numeric (NA),
-                      stringsAsFactors = F)
+    w <- rowSums (Pmat); l <- colSums (Pmat)
+    w2 <- Pmat %*% w; l2 <- t (t(l) %*% Pmat)
     
-    DS$score <- sapply (DS$players, function (x) calcW (x, intData) + 
-                calcWL2 (x, intData) - calcL (x, intData) - 
-                calcWL2 (x, intData, 'l'))
+    DS <- data.frame (players = plyrs, score = w + w2 - l - l2)
     
     DS <- DS [order (-DS$score),]; row.names (DS) <- 1:nrow(DS)
     
