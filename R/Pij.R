@@ -26,15 +26,15 @@
 Pij <- function (pi, pj, intData){
     idError (intData); plyrError (c(pi, pj), intData)
 
-    intDF <- numInt (pi, pj, intData, F, T)
+    intPij <- subset (intData, players = c(pi,pj))
     
-    if (nrow (intDF) == 0){
+    if (nrow (subset (intPij$interactions, outcome != 0)) == 0){
         return (0)
     }
     
     else {
-        alpha = sum (sapply (1:nrow (intDF), 
-                             function(x) findIfWon(pi, intData, x)), na.rm=T)
-        alpha/nrow (intDF)
+        alpha = sum (sapply (1:nrow (intPij$interactions), 
+                             function(x) findIfWon(pi, intPij, x)), na.rm=T)
+        alpha/nrow (subset (intPij$interactions, outcome != 0))
     }
 }
