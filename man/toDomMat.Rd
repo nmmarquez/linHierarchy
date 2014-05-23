@@ -23,7 +23,7 @@ intData as row and column names. A cell is given a value of 1 if the player
 in the row is dominant to the player in the column, a value of .5 if there
 was an equal number of win-loss interactions and NA for all other instances.
 Because this matrix is used in I&SI calulations as outlined by Han de Vries
-(1998) draws are ignored.
+1998 draws are ignored.
 }
 \examples{
 # generate generic data
@@ -35,5 +35,9 @@ interactions <- data.frame (a = sample (letters [1:10], 100, T),
 id1 <- intTableConv (interactions)
 # calculate dominance matrix using all players
 toDomMat (id1)
+}
+\references{
+Han de Vries (1998) Finding a Dominance Order Most Consistant
+with a Linear Hierarchy.
 }
 

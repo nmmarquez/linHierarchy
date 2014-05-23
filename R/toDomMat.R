@@ -9,7 +9,7 @@
 #' in the row is dominant to the player in the column, a value of .5 if there 
 #' was an equal number of win-loss interactions and NA for all other instances. 
 #' Because this matrix is used in I&SI calulations as outlined by Han de Vries
-#' (1998) draws are ignored.
+#' 1998 draws are ignored.
 #' @return a dominance matrix
 #' @examples
 #' # generate generic data
@@ -21,6 +21,8 @@
 #' id1 <- intTableConv (interactions)
 #' # calculate dominance matrix using all players
 #' toDomMat (id1)
+#' @references Han de Vries (1998) Finding a Dominance Order Most Consistant
+#' with a Linear Hierarchy. 
 #' @export
 
 toDomMat <- function (intData){
