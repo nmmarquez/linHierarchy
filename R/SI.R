@@ -1,9 +1,12 @@
-#' Counts the inconsitancies of a Dominance Matrix
+#' Totals the strength of inconsitancies of a Dominance Matrix
 #' 
-#' Adds the total number of inconsistancies of a dominance matrix ignoring any 
-#' dyads where there is a tie.
+#' Takes the total number of inconsistancies of a Matrix andd sums thier 
+#' 'stregnths'.
 #' @param domMat matrix populated by methods described in Hans de Vries 1998.
-#' @return numeric of length 1 totaling the number of inconsistancies in matrix.
+#' @return numeric of length 1 totaling the strength of inconsistancies in a 
+#' matrix.
+#' @details Calculates the strength of inconistancies in a dominance matrix
+#' using the methods outlined in Han de Vries 1998.
 #' @examples
 #' # generate generic data
 #' interactions <- data.frame (a = sample (letters [1:10], 100, T),
@@ -16,13 +19,16 @@
 #' dm1 <- toDomMat (id1)
 #' # get inconsitancy number
 #' inconsis (dm1)
+#' # get strength of inconsistancies
+#' SI (dm1)
 #' @references Han de Vries (1998) Finding a Dominance Order Most Consistant
 #' with a Linear Hierarchy.
 #' @export
 
-
-inconsis <- function (domMat){
+SI <- function (domMat){
     idError (domMat, 'matrix')
     
-    sum (floor (domMat [lower.tri (domMat)]), na.rm = T)
+    idf <- which (lower.tri (domMat) & domMat == 1, arr.ind = T)
+    
+    sum (idf [,'row'] - idf [,'col'])
 }
