@@ -24,5 +24,5 @@
 inconsis <- function (domMat){
     idError (domMat, 'matrix')
     
-    sum (floor (domMat [lower.tri (domMat)]), na.rm = T)
+    sum (lower.tri (domMat) & domMat == 1, na.rm = T)
 }
