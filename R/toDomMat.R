@@ -32,7 +32,6 @@ toDomMat <- function (intData){
         sapply (plyrs, function (y) Pij (y, x, intData)))
     
     Pmat [Pmat != .5] <- round (Pmat [Pmat != .5])
-    Pmat [Pmat == 0] <- NA
     
     Pmat
 }
