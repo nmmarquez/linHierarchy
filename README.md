@@ -16,3 +16,5 @@ rating algorithms:
 - I&S*I
 - David's Score
 - Bayesian Approximation Ranking
+
+Check out the [demo](https://http://rpubs.com/nmmarquez/linHier) on rpubs!
