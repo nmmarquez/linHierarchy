@@ -3,10 +3,12 @@
 \alias{davidScore}
 \title{Calculate the David's Score of players}
 \usage{
-davidScore(intData)
+davidScore(intData, corrected = FALSE)
 }
 \arguments{
 \item{intData}{object of class "interData" to calculate scores.}
+
+\item{corrected}{specify wether to use David's adjustment for chance.}
 }
 \value{
 A 2 column data frame specifying the players used in the algorithm
@@ -17,9 +19,8 @@ Calculates the David's Score of players in an "interData" object.
 }
 \details{
 Using the methods outlined in Gamel et al. 2003 a David's score is
-calculated using interactions from intData. Adjusting the players parameter
-will modify the algorithm so that only interactions that involve the players
-specified will be used.
+calculated using interactions from intData. Adjusting the corrected parameter
+will modify the algorithm to use David's adjustment for chance.
 }
 \examples{
 # generate generic data
@@ -29,8 +30,10 @@ interactions <- data.frame (a = sample (letters [1:10], 100, T),
                             d = Sys.time () + runif (100, 40, 160))
 # convert to interData object
 id1 <- intTableConv (interactions)
-# calculate using all players
+# calculate David's Score
 davidScore (id1)
+# with David's adjustment for chance
+davidScore (id1, corrected = TRUE)
 }
 \references{
 Gammel et al. (2003) David's Score. Animal Behaviour
