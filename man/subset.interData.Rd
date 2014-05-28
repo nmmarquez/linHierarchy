@@ -4,7 +4,7 @@
 \title{Subsets an interData object by players and time}
 \usage{
 \method{subset}{interData}(intData, players = intData$players,
-  time.range = intData$datetime)
+  time.range = intData$datetime, and = TRUE)
 }
 \arguments{
 \item{intData}{an oject of class "interData" to subset.}
@@ -14,9 +14,13 @@
 \item{time.range}{a length 2 sorted POSIXct vector with the first element
 specifying the earliest time of which to consider iteractions and the last
 element specifying the latest time.}
+
+\item{and}{logical specifying wether the players subsetted should occur in
+the player.1 and player.2 position (and = TRUE) or just in a s ingle position
+(and = FALSE).}
 }
 \value{
-a "subset" interData object.
+a "subset" of the interData object.
 }
 \description{
 Takes an "interData" object and subsets it so that it only includes
@@ -32,6 +36,8 @@ interactions <- data.frame (a = sample (letters [1:10], 100, T),
 id1 <- intTableConv (interactions)
 # subset by players
 subset (id1, id1$players [-c(1,2)])
+# get any interaction with a single player
+subset (id1, id1$players [1], and = FALSE)
 #subset by time
 subset (id1, time.range = c(mean (id1$datetime), id1$datetime ['end']))
 }
