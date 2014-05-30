@@ -3,7 +3,6 @@
 #' Creates a matrix cataloging the wins between players in
 #' an interData object.
 #' @param intData object of class "interData" to build the matrix
-#' @return a matrix indicating player wins
 #' @details toInterMat creates a matrix which uses players from
 #' intData as row and column names. Each cell is given an integer value
 #' indicating the number of times the player indicated in the row won a dyadic
