@@ -3,7 +3,7 @@
 \alias{print.eloTable}
 \title{Print call for eloTable object}
 \usage{
-print.eloTable(eloTab)
+\method{print}{eloTable}(eloTab)
 }
 \arguments{
 \item{eloTab}{an object of the class "eloTable"}
