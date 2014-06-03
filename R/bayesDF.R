@@ -1,13 +1,13 @@
-#' Convert interData object to data frame of wins for individuals
+#' Convert interData object to an expanded data frame
 #' 
-#' Creates a data frame which has a row for each unique pairing of indvividuals
-#' in a group and a column specifying the number of first player wins as well as
-#' a column for the number of second player wins for that dyad.
+#' Creates a data frame which has a column for each player in a group 
 #' @param intData object of class "interData" to build the matrix
-#' @return a data frame with arow for each dyad in the group indicating number
-#' of wins.
-#' @details Due to the nature of the construction of the matrix ties amongst
-#' dyads are ignored. 
+#' @return a data frame with a row for each observation in the group and column
+#' for each player where values of 1 and -1 indicate player 1 and player 2 
+#' respectively. The outcome variable is the lat column of the data frame where
+#' 1 and 0 indicate where player 1 or player 2 won respectively.
+#' @details Due to the nature of construction of the data frame ties are 
+#' ignored. 
 #' @examples
 #' # generate generic data
 #' interactions <- data.frame (a = sample (letters [1:10], 100, T),
@@ -16,19 +16,20 @@
 #'                             d = Sys.time () + runif (100, 40, 160))
 #' # convert to interData object
 #' id1 <- intTableConv (interactions)
-#' # calculate using all players
+#' # calculate using only players who had at least 1 win or loss interaction
 #' toBayesDF (id1)
 #' @export
 
 toBayesDF <- function (intData){
-    idError (intData)
+    idError (intData); noTies <- subset (intData, ties = FALSE)
+    df <- noTies$interactions; players <- noTies$players
     
-    interMat <- toInterMat (intData)
-    bayesDF <- as.data.frame (t (combn (id1$players, 2)))
+    bayesDF <- as.data.frame (t (sapply (1:nrow (df), function (x)
+        (df [x,1] == players) - (df [x,2] == players))))
+    names (bayesDF) <- players
     
-    bayesDF [,3] <- apply (bayesDF, 1, function(x) interMat[x [1], x[2]])
-    bayesDF [,4] <- apply (bayesDF, 1, function(x) interMat[x [2], x[1]])
-    names (bayesDF) <- c('p1', 'p2', 'win1', 'win2')
-    
+    bayesDF [,'outcome'] <- df$outcome
+    bayesDF [bayesDF$outcome == -1, 'outcome'] <- 0
+
     bayesDF
 }

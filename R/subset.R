@@ -8,8 +8,9 @@
 #' specifying the earliest time of which to consider iteractions and the last
 #' element specifying the latest time.
 #' @param and logical specifying wether the players subsetted should occur in
-#' the player.1 and player.2 position (and = TRUE) or just in a s ingle position
+#' the player.1 and player.2 position (and = TRUE) or just in a single position
 #' (and = FALSE).
+#' @param ties logical indicting wether to inculde ties. Default is TRUE.
 #' @return a "subset" of the interData object.
 #' @examples
 #' # generate generic data
@@ -28,7 +29,7 @@
 #' @export
 
 subset.interData <- function (intData, players = intData$players, 
-                              time.range = intData$datetime, and = TRUE){
+                              time.range = intData$datetime, and = T, ties = T){
     
     tStart <- sort (time.range) [1]; tEnd <- tail (sort (time.range), 1)
     plyrs <- as.character (players); int.df <- intData$interactions
@@ -42,6 +43,10 @@ subset.interData <- function (intData, players = intData$players,
         newdf <- subset (intData$interactions, (player.1 %in% plyrs | 
                              player.2 %in% plyrs) & datetime >= tStart &
                              datetime <= tEnd)
+    }
+    
+    if (!ties){
+        newdf <- subset (newdf, outcome != 0)
     }
     
     intTableConv (newdf)

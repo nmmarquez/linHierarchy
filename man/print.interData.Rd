@@ -3,7 +3,7 @@
 \alias{print.interData}
 \title{Print call for interData object}
 \usage{
-\method{print}{interData}(interData)
+print.interData(interData)
 }
 \arguments{
 \item{interData}{an object of the class "interData"}

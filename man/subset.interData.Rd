@@ -4,7 +4,7 @@
 \title{Subsets an interData object by players and time}
 \usage{
 \method{subset}{interData}(intData, players = intData$players,
-  time.range = intData$datetime, and = TRUE)
+  time.range = intData$datetime, and = T, ties = T)
 }
 \arguments{
 \item{intData}{an oject of class "interData" to subset.}
@@ -16,8 +16,10 @@ specifying the earliest time of which to consider iteractions and the last
 element specifying the latest time.}
 
 \item{and}{logical specifying wether the players subsetted should occur in
-the player.1 and player.2 position (and = TRUE) or just in a s ingle position
+the player.1 and player.2 position (and = TRUE) or just in a single position
 (and = FALSE).}
+
+\item{ties}{logical indicting wether to inculde ties. Default is TRUE.}
 }
 \value{
 a "subset" of the interData object.
