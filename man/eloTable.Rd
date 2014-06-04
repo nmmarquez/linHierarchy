@@ -3,14 +3,22 @@
 \alias{eloTable}
 \title{Generate a series of elo ratings from interaction data}
 \usage{
-eloTable(intData, initial = 1000, ...)
+eloTable(intData, initial = 1000, kScaleBounds = c(-Inf, Inf),
+  kFactors = 100, minThresh = 100)
 }
 \arguments{
-\item{intData}{an onject of class "interData".}
+\item{intData}{An onject of class "interData".}
 
-\item{initial}{the starting score for all participants in the group.}
+\item{initial}{The starting score for all participants in the group.}
 
-\item{...}{further arguments to be passed to or from other methods.}
+\item{kScaleBounds}{The player score bins to associate with K factors. See
+?findK for more details}
+
+\item{kFactors}{The possible K factors to be used. See ?findK for more
+details.}
+
+\item{minThresh}{The minimum value of any players score. See
+?eloSingleOutcome for more details}
 }
 \value{
 An object of the class eloTable which contains a vector of players

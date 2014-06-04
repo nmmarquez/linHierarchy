@@ -3,7 +3,7 @@
 \alias{findK}
 \title{Generate the appropriate K factor given a players score}
 \usage{
-findK(playerScore, kScaleBounds = c(-Inf, Inf), kFactors = 100, ...)
+findK(playerScore, kScaleBounds, kFactors)
 }
 \arguments{
 \item{playerScore}{the score of the player in question}
@@ -11,8 +11,6 @@ findK(playerScore, kScaleBounds = c(-Inf, Inf), kFactors = 100, ...)
 \item{kScaleBounds}{the player score bins to associate with K factors}
 
 \item{kFactors}{the possible K factors to be used}
-
-\item{...}{further arguments to be passed to or from other methods.}
 }
 \value{
 the players associated K factor
@@ -41,7 +39,7 @@ players score to always remain within an acceptable range.
 }
 \examples{
 # generic function calls
-findK (1000)
+findK (1000, kScaleBounds = c(-Inf, Inf), kFactors = 100)
 findK (1000, kScaleBounds = c(-Inf, 1100, Inf), kFactors = c(32, 16))
 # may cause errors in elo algorithim if range of kscale bounds isnt all real
 # numbers but you can still call it this way

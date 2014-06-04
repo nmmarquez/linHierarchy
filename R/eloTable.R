@@ -2,9 +2,14 @@
 #' 
 #' Given an object of the class "interData" will produce a series of elo
 #' ratings up until the latest interaction in the interData object.
-#' @param intData an onject of class "interData".
-#' @param initial the starting score for all participants in the group.
-#' @param ... further arguments to be passed to or from other methods.
+#' @param intData An onject of class "interData".
+#' @param initial The starting score for all participants in the group.
+#' @param kScaleBounds The player score bins to associate with K factors. See
+#' ?findK for more details
+#' @param kFactors The possible K factors to be used. See ?findK for more 
+#' details.
+#' @param minThresh The minimum value of any players score. See 
+#' ?eloSingleOutcome for more details
 #' @details Using the methods described in Neumann et al 2011. a series of Elo
 #' ratings are generated from interaction data. Initial scores may either be a
 #' single numeric value or a vector of integers correspong to the players
@@ -28,7 +33,8 @@
 #' Animal Behaviour
 #' @export
 
-eloTable <- function (intData, initial = 1000, ...){
+eloTable <- function (intData, initial = 1000, kScaleBounds = c(-Inf, Inf), 
+                      kFactors = 100, minThresh = 100){
     idError (intData)
     df.int <- intData [[3]]; players <- intData [[1]]
     elo <- data.frame (player = players, score = initial, 
@@ -38,19 +44,13 @@ eloTable <- function (intData, initial = 1000, ...){
         out <- df.int [i, 3]; time <- df.int [i, 4]
         sc1 <- tail (elo$score [elo$player == p1], 1) # player 1's old score
         sc2 <- tail (elo$score [elo$player == p2], 1) # player 2's old score
-        k1 <- findK (sc1, ...); k2 <- findK (sc2, ...) # get k factors
-        if (sc1 >= sc2){
-            elo [n+1,'player'] <- p1; elo [n+1, 'datetime'] <- time
-            elo [n+1,'score'] <- singleOutcome (sc1, sc2, out, k1, k2, ...) [1]
-            elo [n+2,'player'] <- p2; elo [n+2, 'datetime'] <- time
-            elo [n+2,'score'] <- singleOutcome (sc1, sc2, out, k1, k2, ...) [2]
-        }
-        else {
-            elo [n+1,'player'] <- p1; elo [n+1,'datetime'] <- time
-            elo [n+1,'score'] <- singleOutcome(sc2, sc1, -out, k2, k1, ...) [2]
-            elo [n+2,'player'] <- p2; elo [n+2,'datetime'] <- time
-            elo [n+2,'score'] <- singleOutcome(sc2, sc1, -out, k2, k1, ...) [1]
-        }
+        k1 <- findK (sc1, kScaleBounds, kFactors) # get k factor for player.1
+        k2 <- findK (sc2, kScaleBounds, kFactors) # get k factor for player.2
+        
+        elo [n+1,'player'] <- p1; elo [n+1, 'datetime'] <- time
+        elo [n+1,'score'] <- singleOutcome (sc1, sc2, out, k1, k2, minThresh)[1]
+        elo [n+2,'player'] <- p2; elo [n+2, 'datetime'] <- time
+        elo [n+2,'score'] <- singleOutcome (sc1, sc2, out, k1, k2, minThresh)[2]
     }
     elo.f <- list (players = players, datetime = range(elo$datetime,na.rm = T),
                    eloTable = elo)

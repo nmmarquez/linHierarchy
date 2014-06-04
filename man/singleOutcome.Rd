@@ -3,25 +3,23 @@
 \alias{singleOutcome}
 \title{Generate New Elo Scores from a Single Dyadic Interaction}
 \usage{
-singleOutcome(RA, RB, outcome, kA, kB, minThresh = 100, ...)
+singleOutcome(R1, R2, out, k1, k2, minThresh = 100, ...)
 }
 \arguments{
-\item{RA}{Score of the higher rated player (player A)}
+\item{R1}{Current score of player.1.}
 
-\item{RB}{score of the lower rated player (player B)}
+\item{R2}{Current score of player.2.}
 
-\item{outcome}{either 1 player A wins, -1 player B wins, or 0 tie}
+\item{out}{either 1 player 1 wins, -1 player 2 wins, or 0 tie}
 
-\item{kA}{the k factor for player A}
+\item{kA}{the k factor for player 1}
 
-\item{kB}{the k factor for player B}
+\item{kB}{the k factor for player 2}
 
 \item{minThresh}{the minimum value of any players score}
-
-\item{...}{further arguments to be passed to or from other methods.}
 }
 \value{
-a vector with player A's and B's new scores
+a vector with player 1's and 2's new scores
 }
 \description{
 Takes the elo score of two individuals as well as their rating adjustments
