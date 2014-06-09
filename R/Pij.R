@@ -7,8 +7,11 @@
 #' there was a clear winner. (i.e. no tie)
 #' @description Calculates the percentage of games player i (pi) won over 
 #' player j (pj) across the interData object. Ties are disregarded in this 
-#' calculation as per the methods described in Gammel et al. 2003
-#' @references Gammel et al. (2003) David's Score. Animal Behaviour
+#' calculation as per the methods described in Gammel et al. 2003 and de Vries
+#' et al. 2006.
+#' @references Gammel et al. (2003) David's Score. Animal Behaviour.  
+#' de Vries et al (2006). Measuring and testing the steepness of 
+#' dominance hierarchies. Animal Behaviour.
 #' @examples 
 #' # generate generic data
 #' interactions <- data.frame (a = sample (letters [1:10], 100, T),

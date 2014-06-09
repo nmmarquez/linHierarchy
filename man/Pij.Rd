@@ -15,7 +15,8 @@ there was a clear winner. (i.e. no tie)
 \description{
 Calculates the percentage of games player i (pi) won over
 player j (pj) across the interData object. Ties are disregarded in this
-calculation as per the methods described in Gammel et al. 2003
+calculation as per the methods described in Gammel et al. 2003 and de Vries
+et al. 2006.
 }
 \details{
 Given two players in interaction data finds the percentage for
@@ -33,6 +34,8 @@ id1 <- intTableConv (interactions)
 Pij (toInterMat (id1))
 }
 \references{
-Gammel et al. (2003) David's Score. Animal Behaviour
+Gammel et al. (2003) David's Score. Animal Behaviour.
+de Vries et al (2006). Measuring and testing the steepness of
+dominance hierarchies. Animal Behaviour.
 }
 

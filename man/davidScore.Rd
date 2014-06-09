@@ -21,9 +21,10 @@ sorted by their corresponding david's score.
 Calculates the David's Score of players in an "interData" object.
 }
 \details{
-Using the methods outlined in Gamel et al. 2003 a David's score is
-calculated using interactions from intData. Adjusting the corrected parameter
-will modify the algorithm to use David's adjustment for chance.
+Using the methods outlined in Gamel et al. 2003 and de Vries et al.
+2006 a David's score is calculated using interactions from intData. Adjusting
+the corrected parameter will modify the algorithm to use David's adjustment
+for chance.
 }
 \examples{
 # generate generic data
@@ -39,6 +40,8 @@ davidScore (id1)
 davidScore (id1, corrected = TRUE)
 }
 \references{
-Gammel et al. (2003) David's Score. Animal Behaviour
+Gammel et al. (2003) David's Score. Animal Behaviour.
+de Vries et al (2006). Measuring and testing the steepness of
+dominance hierarchies. Animal Behaviour.
 }
 
