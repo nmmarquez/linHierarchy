@@ -2,7 +2,7 @@
 #' 
 #' Given two players in interaction data finds the percentage for
 #' winning of the first player over of the seconed.
-#' @param intMat An interaction matrix as created by toInterMat
+#' @param intData an object of the class "interData"
 #' @return Numeric value reflecting the percentage of time pi beat pj where
 #' there was a clear winner. (i.e. no tie)
 #' @description Calculates the percentage of games player i (pi) won over 
@@ -21,7 +21,9 @@
 #' Pij (toInterMat (id1))
 #' @export
 
-Pij <- function (intMat){
+Pij <- function (intData){
+    idError (intData)
+    intMat <- toInterMat (intData)
     Nij <- t(intMat) + intMat
     pMat <- intMat/Nij
     pMat [is.na (pMat)] <- 0

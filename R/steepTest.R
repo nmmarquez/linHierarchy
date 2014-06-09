@@ -26,7 +26,7 @@ steepTest <- function (intData, iter = 2000, corrected = FALSE){
         return (sort (mat %*% w - t (t(l) %*% mat) + w - l))
     }
     
-    steep <- lm ((DS (f1 (iMat)) + maxDS)/np ~ numPlyrs)$coefficients [2]
+    steep <- lm ((DS (f1 (intData)) + maxDS)/np ~ numPlyrs)$coefficients [2]
     emp.mat.list <- replicate (iter, iMat, FALSE)
     mat.list <- lapply (emp.mat.list, new.Rmat)
     ds.list <- lapply (mat.list, function (x) (DS (x) + maxDS)/np)

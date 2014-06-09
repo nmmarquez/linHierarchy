@@ -28,10 +28,10 @@
 davidScore <- function (intData, corrected = FALSE, normalize = FALSE){
     idError (intData); plyrs <- intData$players
     if (corrected){
-        Pmat <- Dij (toInterMat (intData))
+        Pmat <- Dij (intData)
     }
     else{
-        Pmat <- Pij (toInterMat (intData))
+        Pmat <- Pij (intData)
     }
     
     w <- rowSums (Pmat); l <- colSums (Pmat)

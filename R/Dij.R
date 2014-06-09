@@ -2,7 +2,7 @@
 #' 
 #' Given two players in interaction data finds the David adjusted percentage for
 #' winning of the first player over of the seconed as per Gammel et al. 2003.
-#' @param intMat An interaction matrix as created by toInterMat
+#' @param intData an object of the class "interData"
 #' @return Numeric value reflecting the percentage of time pi beat pj where
 #' there was a clear winner (i.e. no tie) adjusted for chance.
 #' @description Calculates the percentage of games player i (pi) won over 
@@ -22,7 +22,9 @@
 #' Dij (toInterMat (id1))
 #' @export
 
-Dij <- function (intMat){
+Dij <- function (intData){
+    idError (intData)
+    intMat <- toInterMat (intData)
     Nij <- t(intMat) + intMat
     pMat <- intMat/Nij - ((intMat/Nij - .5)/ (Nij + 1))
     pMat [is.na (pMat)] <- 0

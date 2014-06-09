@@ -3,10 +3,10 @@
 \alias{Pij}
 \title{Evaluates the probability of Winning}
 \usage{
-Pij(intMat)
+Pij(intData)
 }
 \arguments{
-\item{intMat}{An interaction matrix as created by toInterMat}
+\item{intData}{an object of the class "interData"}
 }
 \value{
 Numeric value reflecting the percentage of time pi beat pj where
