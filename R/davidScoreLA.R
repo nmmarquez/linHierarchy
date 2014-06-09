@@ -2,7 +2,9 @@
 #' 
 #' Calculates the David's Score of players in an "interData" object.
 #' @param intData object of class "interData" to calculate scores.
-#' @param corrected specify wether to use David's adjustment for chance. 
+#' @param corrected specify wether to use David's adjustment for chance.
+#' @param normalized specify wether to use a normalizing factor detailed in 
+#' de Vries et al (2006).
 #' @details Using the methods outlined in Gamel et al. 2003 a David's score is 
 #' calculated using interactions from intData. Adjusting the corrected parameter
 #' will modify the algorithm to use David's adjustment for chance. 
@@ -23,15 +25,13 @@
 #' @references Gammel et al. (2003) David's Score. Animal Behaviour
 #' @export
 
-davidScore <- function (intData, corrected = FALSE){
+davidScore <- function (intData, corrected = FALSE, normalize = FALSE){
     idError (intData); plyrs <- intData$players
     if (corrected){
-        Pmat <- sapply (plyrs, function (x) 
-            sapply (plyrs, function (y) Dij (y, x, intData)))
+        Pmat <- Dij (toInterMat (intData))
     }
     else{
-        Pmat <- sapply (plyrs, function (x) 
-            sapply (plyrs, function (y) Pij (y, x, intData)))
+        Pmat <- Pij (toInterMat (intData))
     }
     
     w <- rowSums (Pmat); l <- colSums (Pmat)
@@ -39,6 +39,10 @@ davidScore <- function (intData, corrected = FALSE){
     
     DS <- data.frame (players = plyrs, score = w + w2 - l - l2)
     DS <- DS [order (-DS$score),]; row.names (DS) <- 1:nrow(DS)
+    
+    if (normalize){
+        DS$score <- (DS$score + nrow (Pmat) * ((nrow (Pmat) - 1)/2))/nrow (Pmat)
+    }
     
     DS
 }

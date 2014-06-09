@@ -2,9 +2,7 @@
 #' 
 #' Given two players in interaction data finds the percentage for
 #' winning of the first player over of the seconed.
-#' @param pi player to find win percentage of
-#' @param pj opposng player
-#' @param intData object of class "interData" where pi and pj are players
+#' @param intMat An interaction matrix as created by toInterMat
 #' @return Numeric value reflecting the percentage of time pi beat pj where
 #' there was a clear winner. (i.e. no tie)
 #' @description Calculates the percentage of games player i (pi) won over 
@@ -19,22 +17,13 @@
 #'                             d = Sys.time () + runif (100, 40, 160))
 #' # convert to interData object
 #' id1 <- intTableConv (interactions)
-#' # find Pij betweeen two players in group
-#' Pij (id1$players [1], id1$players [2], id1)
+#' # find Pij betweeen players in group
+#' Pij (toInterMat (id1))
 #' @export
 
-Pij <- function (pi, pj, intData){
-    idError (intData); plyrError (c(pi, pj), intData)
-
-    intPij <- subset (intData, players = c(pi,pj))
-    
-    if (nrow (subset (intPij$interactions, outcome != 0)) == 0){
-        return (0)
-    }
-    
-    else {
-        alpha = sum (sapply (1:nrow (intPij$interactions), 
-                             function(x) findIfWon(pi, intPij, x)), na.rm=T)
-        alpha/nrow (subset (intPij$interactions, outcome != 0))
-    }
+Pij <- function (intMat){
+    Nij <- t(intMat) + intMat
+    pMat <- intMat/Nij
+    pMat [is.na (pMat)] <- 0
+    pMat
 }

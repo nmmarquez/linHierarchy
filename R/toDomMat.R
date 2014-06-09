@@ -26,10 +26,9 @@
 #' @export
 
 toDomMat <- function (intData){
-    idError (intData); plyrs <- intData$players
+    idError (intData)
     
-    Pmat <- sapply (plyrs, function (x) 
-        sapply (plyrs, function (y) Pij (y, x, intData)))
+    Pmat <- Pij (toInterMat (intData))
     
     Pmat [Pmat != .5] <- round (Pmat [Pmat != .5])
     
