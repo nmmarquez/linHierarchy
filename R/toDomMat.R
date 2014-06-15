@@ -28,7 +28,7 @@
 toDomMat <- function (intData){
     idError (intData)
     
-    Pmat <- Pij (toInterMat (intData))
+    Pmat <- Pij (intData)
     
     Pmat [Pmat != .5] <- round (Pmat [Pmat != .5])
     
