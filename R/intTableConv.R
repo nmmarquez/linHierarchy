@@ -45,16 +45,18 @@ intTableConv <- function (df, ...){
     df.int [,1] <- as.character (df.int [,1])
     df.int [,2] <- as.character (df.int [,2])
     df.int [,4] <- as.POSIXct (df.int [,4], ...)
+    df.int <- na.omit (df.int); N <- nrow (df.int)
     
     if (!all (sapply (df.int [,3], function (x) abs (x) == 1 | x == 0))){
         warning ("Outcomes are not formatted properly")
     }
     
-    df.int <- df.int [order (df.int [,4], runif (nrow (df.int))),]
-    if (nrow (df.int) > 0) {row.names (df.int) <- 1:nrow (df.int)}
+    df.int <- df.int [order (df.int [,4], runif (N)),]
+    if (N > 0) {row.names (df.int) <- 1:N}
     players <- unique (c(df.int$player.1, df.int$player.2))
     intList <- suppressWarnings (list (players = as.character (players), 
-                                       datetime = range (df.int$datetime), 
+                                       datetime = c(sort(df.int$datetime) [1],
+                                                    sort(df.int$datetime,T)[1]), 
                                        interactions = df.int))
     names (intList [['datetime']]) <- c('start', 'end')
     class (intList) <- "interData"
