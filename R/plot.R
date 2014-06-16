@@ -18,6 +18,7 @@
 #' and leads to a ‘reversed axis’.
 #' @param ylim the y limits of the plot.
 #' @param lty,lwd the line types and widths for lines appearing in the legend.
+#' @param legend logical indicating wether to include legend.
 #' @param legend.pos the position of the legend on the graph
 #' @param bty the type of box to be drawn around the legend. The allowed values
 #' are "o" (the default) and "n".
@@ -54,7 +55,7 @@ plot.eloTable <- function (eloTab, start.time = eloTab [[2]] [1],
                            main = 'Elo Rating Across Time',
                            xlim = range (wEloTab$datetime),
                            ylim = range (wEloTab$score), lty = 1, lwd = 1, 
-                           legend.pos = 'topleft', bty = 'o', ...){
+                           legend = T, legend.pos = 'topleft', bty = 'o', ...){
     if (!any (grepl ("POSIX",  class (start.time))) | 
         !any (grepl ("POSIX",  class (end.time)))){
         stop ("Start and end time must be of POSIX class")
@@ -73,5 +74,7 @@ plot.eloTable <- function (eloTab, start.time = eloTab [[2]] [1],
         lines (temp$datetime, temp$score, col = rep (col, length (players)) [i], 
                lty = lty, lwd = lwd)
     }
-    legend (legend.pos, players, col = col, lty = lty, lwd = lwd, bty = bty)
+    if (legend){
+        legend (legend.pos, players, col = col, lty = lty, lwd = lwd, bty = bty)
+    }
 }
