@@ -38,7 +38,9 @@ eloTable <- function (intData, initial = 1000, kScaleBounds = c(-Inf, Inf),
     idError (intData)
     df.int <- intData [[3]]; players <- intData [[1]]
     elo <- data.frame (player = players, score = initial, 
-                       datetime = as.POSIXct (NA), stringsAsFactors = F)
+                       datetime = as.POSIXct (NA), opponent = as.character (NA),
+                       opponentScore = as.numeric(NA), outcome = as.numeric(NA),
+                       margin = as.numeric(NA), stringsAsFactors = F)
     for (i in 1:nrow (df.int)){
         n <- nrow (elo); p1 <- df.int [i,1]; p2 <- df.int [i,2] 
         out <- df.int [i, 3]; time <- df.int [i, 4]
@@ -49,8 +51,12 @@ eloTable <- function (intData, initial = 1000, kScaleBounds = c(-Inf, Inf),
         
         elo [n+1,'player'] <- p1; elo [n+1, 'datetime'] <- time
         elo [n+1,'score'] <- singleOutcome (sc1, sc2, out, k1, k2, minThresh)[1]
+        elo [n+1,'opponent'] <- p2; elo [n+1,'outcome'] <- out
+        elo [n+1,'opponentScore'] <- sc2; elo [n+1,'margin'] <- sc1 - sc2
         elo [n+2,'player'] <- p2; elo [n+2, 'datetime'] <- time
         elo [n+2,'score'] <- singleOutcome (sc1, sc2, out, k1, k2, minThresh)[2]
+        elo [n+2,'opponent'] <- p1; elo [n+2,'outcome'] <- out * -1
+        elo [n+2,'opponentScore'] <- sc1; elo [n+2,'margin'] <- sc2 - sc1
     }
     elo.f <- list (players = players, datetime = range(elo$datetime,na.rm = T),
                    eloTable = elo)

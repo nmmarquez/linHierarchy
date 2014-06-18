@@ -22,8 +22,8 @@ singleOutcome <- function (R1, R2, out, k1, k2, minThresh = 100, ...){
     
     # calculate new scores
     if (out >= 0){
-        newA <- ((RA + (1-p)*kA)**(out))*((RA - (1-p)*kA)**(1 - out))
-        newB <- ((RB - (1-p)*kB)**(out))*((RB + (1-p)*kB)**(1 - out))
+        newA <- ((RA + (1-p)*kA)**(out)) * ((RA + (.5-p)*kA)**(1 - out))
+        newB <- ((RB - (1-p)*kB)**(out)) * ((RB + (-.5+p)*kB)**(1 - out))
     }
     else{
         newA <- RA - p*kA; newB <- RB + p*kB
