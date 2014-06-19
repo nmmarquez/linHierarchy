@@ -6,6 +6,8 @@
 #' @param N the number of ratings to return.
 #' @param time.range POSIXct of length two which describes the time range to 
 #' look for scores in.
+#' @param low logical stating wether to get the lowest lowest scores as opposed
+#' to the highest.
 #' @details Using an eloTable the function will look for the top or bottom
 #' ratings achieved for each unique player and returns the N highest scores in a 
 #' data frame. The data frame is of the same structure as the dataf frame in an 

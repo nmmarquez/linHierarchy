@@ -1,0 +1,512 @@
+new [upper.tri (new)] <- repl
+new <- t(new)
+new [upper.tri (new)] <- 1 - repl
+new [is.na (new)] <- 0
+t (new)
+}
+DS <- function (mat){
+w <- rowSums (mat); l <- colSums (mat)
+return (sort (mat %*% w - t (t(l) %*% mat) + w - l))
+}
+steep <- lm (DS (f1 (iMat)) ~ numPlyrs)$coefficients [2]
+emp.mat.list <- replicate (iter, iMat, FALSE)
+mat.list <- lapply (emp.mat.list, new.Rmat)
+system.time (lapply (emp.mat.list, new.Rmat))
+et1 <- eloTable (id1)
+# get latest scores
+extractScores (et1)
+et1 <- eloTable (intData)
+# get latest scores
+extractScores (et1)
+# remove ties
+id1.noTies <- subset (intData, ties = FALSE)
+# generate generic data
+interactions <- data.frame (a = sample (1:100, 10000, T),
+b = sample (1:100, 10000, T),
+o = sample (c(-1,-1,0,1,1), 10000, T),
+d = Sys.time () + runif (100, 40, 160))
+# convert to interData object
+id1 <- intTableConv (interactions)
+et1 <- eloTable (id1)
+# get latest scores
+extractScores (et1)
+system.time (eloTable (id1))
+id1.noTies <- subset (id1, ties = FALSE)
+system.time (MCMCBradTerr (id1.noTies))
+posterior <- MCMCBradTerr (id1.noTies)
+plot (posterior)
+system.time (toBayesDF (id1))
+toBayesDF (id1)
+nrow (toBayesDF (id1))
+IaSI (id1)
+# generate generic data
+interactions <- data.frame (a = sample (1:1000, 100000, T),
+b = sample (1:1000, 100000, T),
+o = sample (c(-1,-1,0,1,1), 100000, T),
+d = Sys.time () + runif (100, 40, 160))
+# convert to interData object
+id1 <- intTableConv (interactions)
+system.time (eloTable (id1))
+library("steepness", lib.loc="/Library/Frameworks/R.framework/Versions/3.1/Resources/library")
+?corr
+?cor
+library("linHierarchy", lib.loc="/Library/Frameworks/R.framework/Versions/3.1/Resources/library")
+# generate generic data
+interactions <- data.frame (a = sample (letters [1:10], 100, T),
+b = sample (letters [1:10], 100, T),
+o = sample (c(-1,-1,0,1,1), 100, T),
+d = Sys.time () + runif (100, 40, 160))
+# convert to interData object
+intData <- intTableConv (interactions)
+iMat <- toInterMat (intData); numPlyrs <- 1:length (intData$players)
+Nij <- t(iMat) [upper.tri (t(iMat))] + iMat [upper.tri (iMat)]
+f1 <- Pij; f2 <- function (Rij) {Rij/Nij}
+library(linHierarchy)
+Pij
+DS <- function (mat){
+w <- rowSums (mat); l <- colSums (mat)
+return (sort (mat %*% w - t (t(l) %*% mat) + w - l))
+}
+lm (DS (f1 (iMat)) ~ numPlyrs)
+f1 <- Dij; f2 <- function (Rij){Rij/Nij - (((Rij/Nij) - .5)/(Nij + 1))}
+f1 <- Pij; f2 <- function (Rij) {Rij/Nij}
+lm (DS (f1 (iMat)) ~ numPlyrs)
+cor (DS (f1 (iMat)) ~ numPlyrs)
+cor (numPlyrs, DS (f1 (iMat)))
+steepTest <- function (intData, iter = 2000, corrected = FALSE){
+iMat <- toInterMat (intData); numPlyrs <- 1:length (intData$players)
+Nij <- t(iMat) [upper.tri (t(iMat))] + iMat [upper.tri (iMat)]
+if (corrected){
+f1 <- Dij; f2 <- function (Rij){Rij/Nij - (((Rij/Nij) - .5)/(Nij + 1))}
+}
+else{
+f1 <- Pij; f2 <- function (Rij) {Rij/Nij}
+}
+new.Rmat <- function (mat){
+new <- mat
+Rij <- sapply (Nij, function (x) sample (0:x,1))
+repl <- f2 (Rij)
+new [upper.tri (new)] <- repl
+new <- t(new)
+new [upper.tri (new)] <- 1 - repl
+new [is.na (new)] <- 0
+t (new)
+}
+DS <- function (mat){
+w <- rowSums (mat); l <- colSums (mat)
+return (sort (mat %*% w - t (t(l) %*% mat) + w - l))
+}
+steep <- lm (DS (f1 (iMat)) ~ numPlyrs)$coefficients [2]
+emp.mat.list <- replicate (iter, iMat, FALSE)
+mat.list <- lapply (emp.mat.list, new.Rmat)
+ds.list <- lapply (mat.list, DS)
+coeffs <- unlist (lapply (ds.list,
+function (x) lm (x ~ numPlyrs)$coefficients [2]))
+final <- c (steep, sum (coeffs > steep)/length (coeffs))
+names (final) <- c('steepness', 'p-value')
+final
+}
+steepTest (intData)
+steeptest (iMat, 2000)
+steepTest (intData)
+steeptest (iMat, 2000, "Pij")
+steeptest (iMat, 2000, method = "Pij")
+steeptest
+steepTest <- function (intData, iter = 2000, corrected = FALSE){
+iMat <- toInterMat (intData); numPlyrs <- 1:nrow(iMat); np <- nrow(iMat)
+Nij <- t(iMat) [upper.tri (t(iMat))] + iMat [upper.tri (iMat)]
+maxDS <- np * ((np - 1)/2)
+if (corrected){
+f1 <- Dij; f2 <- function (Rij){Rij/Nij - (((Rij/Nij) - .5)/(Nij + 1))}
+}
+else{
+f1 <- Pij; f2 <- function (Rij) {Rij/Nij}
+}
+new.Rmat <- function (mat){
+new <- mat
+Rij <- sapply (Nij, function (x) sample (0:x,1))
+repl <- f2 (Rij)
+new [upper.tri (new)] <- repl
+new <- t(new)
+new [upper.tri (new)] <- 1 - repl
+new [is.na (new)] <- 0
+t (new)
+}
+DS <- function (mat){
+w <- rowSums (mat); l <- colSums (mat)
+return (sort (mat %*% w - t (t(l) %*% mat) + w - l))
+}
+steep <- lm ((DS (f1 (iMat)) + maxDS)/np ~ numPlyrs)$coefficients [2]
+emp.mat.list <- replicate (iter, iMat, FALSE)
+mat.list <- lapply (emp.mat.list, new.Rmat)
+ds.list <- lapply (mat.list, function (x) (DS (x) + maxDS)/np)
+coeffs <- unlist (lapply (ds.list,
+function (x) lm (x ~ numPlyrs)$coefficients [2]))
+final <- c (steep, sum (coeffs > steep)/length (coeffs))
+names (final) <- c('steepness', 'p-value')
+final
+}
+steeptest (iMat, 2000, method = "Pij")
+steepTest (intData)
+iMat
+library(linHierarchy)
+steepTest (intData)
+system.time (steepTest (intData))
+X <- matrix(c(0,58,50,61,32,37,29,39,25,8,0,22,22,9,27,20,10,48,
+3,3,0,19,29,12,13,19,8,5,8,9,0,33,38,35,32,57,
+4,7,9,1,0,28,26,16,23,4,3,0,0,6,0,7,6,12,
+2,0,4,1,4,4,0,5,3,0,2,1,1,5,8,3,0,10,3,1,3,0,0,4,1,2,0),
+nrow=9,byrow=TRUE)
+individuals <- c("V","VS","B","FJ","PR","VB","TOR","MU","ZV")
+print(getStp(X,method="Dij"),digits=3)
+getwl(X,names=individuals,method="Dij")
+getPij
+Dij (intData)
+Dij (toInterMat (intData))
+library(linHierarchy)
+Dij (toInterMat (intData))
+Pij (toInterMat (intData))
+library(linHierarchy)
+Pij (toInterMat (intData))
+library(linHierarchy)
+Dij (toInterMat (intData))
+steepTest (intData, 5000)
+system.time (steepTest (intData, 5000))
+steepTest (intData, 5000)
+steepTest (intData, 10000)
+steepTest (intData, 15000)
+library(linHierarchy)
+# generate generic data
+interactions <- data.frame (a = sample (letters [1:10], 100, T),
+b = sample (letters [1:10], 100, T),
+o = sample (c(-1,-1,0,1,1), 100, T),
+d = Sys.time () + runif (100, 40, 160))
+# convert to interData object
+id1 <- intTableConv (interactions)
+# calculate David's Score
+davidScore (id1)
+# with David's adjustment for chance
+davidScore (id1, corrected = TRUE)
+davidScore (id1, corrected = TRUE, normalize=TRUE)
+davidScore (id1, normalize=TRUE)
+steepTest (intData, 15000)
+library(linHierarchy)
+library(linHierarchy)
+# generate generic data
+interactions <- data.frame (a = sample (letters [1:10], 100, T),
+b = sample (letters [1:10], 100, T),
+o = sample (c(-1,-1,0,1,1), 100, T),
+d = Sys.time () + runif (100, 40, 160))
+# convert to interData object
+id1 <- intTableConv (interactions)
+# calculate David's Score
+davidScore (id1)
+# calculate steepness and p-value
+steepTest (id1)
+# generate generic data
+interactions <- data.frame (a = sample (letters [1:10], 100, T),
+b = sample (letters [1:10], 100, T),
+o = sample (c(-1,-1,0,1,1), 100, T),
+d = Sys.time () + runif (100, 40, 160))
+# convert to interData object
+id1 <- intTableConv (interactions)
+# calculate David's Score
+davidScore (id1)
+# calculate steepness and p-value
+steepTest (id1)
+stringsAsFactors = F) [,1:11]
+?read.csv
+fights = read.csv ('~/Google Drive/Elo_Ranking/testing/mma/mma.csv',
+stringsAsFactors = F) [,1:11]
+fights <- read.csv ('~/Google Drive/Elo_Ranking/testing/mma/mma.csv',
+stringsAsFactors = F) [,1:11]
+stringsAsFactors = F) [,1])
+one55 <- as.vector (read.csv('~/Google Drive/Elo_Ranking/testing/mma/one55.csv',
+stringsAsFactors = F) [,1])
+eli <- as.vector(read.csv('~/Google Drive/Elo_Ranking/testing/mma/eligible.csv',
+stringsAsFactors = F) [,1])
+head (fights)
+?grepl
+grepl ('tr', 'tre')
+new <- vector()
+new <- vector('numeric')
+source('~/.active-rstudio-document', echo=TRUE)
+source('~/.active-rstudio-document', echo=TRUE)
+source('~/Google Drive/Elo_Ranking/testing/mma/mma.R', echo=TRUE)
+fights$outcome <- outcomeTranz (fights$outcome)
+class (fights$outcome)
+source('~/.active-rstudio-document', echo=TRUE)
+fights$outcome
+source('~/.active-rstudio-document', echo=TRUE)
+outcomeTranz (fights$outcome)
+table (fights$outcome)
+table (tolower (fights$outcome))
+summary (as.factor (tolower (fights$outcome)))
+source('~/.active-rstudio-document', echo=TRUE)
+source('~/.active-rstudio-document', echo=TRUE)
+fights$outcome
+head (fights)
+source('~/.active-rstudio-document', echo=TRUE)
+source('~/.active-rstudio-document', echo=TRUE)
+alpha <- alphaTab (fights)
+source('~/.active-rstudio-document', echo=TRUE)
+head (alpha)
+source('~/.active-rstudio-document', echo=TRUE)
+head (alpha)
+?duplicated
+source('~/Google Drive/Elo_Ranking/testing/mma/mma.R', echo=TRUE)
+source('~/Google Drive/Elo_Ranking/testing/mma/mma.R', echo=TRUE)
+head (alpha)
+summary (duplicated (alph [,c(1,2,3,6)]))
+summary (duplicated (alpha [,c(1,2,3,6)]))
+duplicated (alpha [,c(1,2,3,6)])
+uniFights <- alpha [duplicated (alpha [,c(1,2,3,6)]),]
+uniFights <- alpha [-duplicated (alpha [,c(1,2,3,6)]),]
+summary (duplicated (alpha [,c(1,2,3,6)]))
+uniFights <- alpha [!duplicated (alpha [,c(1,2,3,6)]),]
+eliFights <- subset (uniFights, player.1 %in% eli & player.2 %in% eli)
+head (eliFights)
+strsplit ('02013-11-30-0000November 30, 2013 ')
+strsplit ('02013-11-30-0000November 30, 2013', '')
+?strsplit
+strsplit ('02013-11-30-0000November 30, 2013', '') [[1]]
+strsplit ('02013-11-30-0000November 30, 2013', '') [[1]] [2:11]
+paste0 (strsplit ('02013-11-30-0000November 30, 2013', '') [[1]] [2:11])
+?paste0
+paste0 (strsplit ('02013-11-30-0000November 30, 2013', '') [[1]] [2:11], collapse=T)
+paste0 (strsplit ('02013-11-30-0000November 30, 2013', '') [[1]] [2:11], collapse='')
+source('~/.active-rstudio-document', echo=TRUE)
+source('~/.active-rstudio-document', echo=TRUE)
+getDate (eliFights$date)
+eliFights$date <- getDate (eliFights$date)
+head (eliFights)
+head (eliFights [,c(1,3,2,6)])
+library (linHierarchy)
+fightInt <- intTableConv (eliFights [,c(1,3,2,6)], format = '%Y-%m-%d')
+?as.POSIXct
+intTableConv
+library(linHierarchy)
+source('~/Google Drive/Elo_Ranking/linHierarchy/R/intTableConv.R', echo=TRUE)
+source('~/Google Drive/Elo_Ranking/testing/mma/mma.R', echo=TRUE)
+intTableConv
+library(linHierarchy)
+intTableConv
+detach("package:linHierarchy", unload=TRUE)
+library("linHierarchy", lib.loc="/Library/Frameworks/R.framework/Versions/3.1/Resources/library")
+detach("package:linHierarchy", unload=TRUE)
+library("linHierarchy", lib.loc="/Users/marqueznm/Library/R/3.1/library")
+intTableConv
+source('~/.active-rstudio-document', echo=TRUE)
+intTableConv
+fightInt
+eliFights [,c(1,3,2,6)]
+eliFights[,c(1,3,2,6)] <- na.omit (eliFights [,c(1,3,2,6)])
+na.omit (eliFights [,c(1,3,2,6)])
+eliFights[,c(1,3,2,6)] <- na.omit (eliFights [,c(1,3,2,6)])
+eliFights <- na.omit (eliFights)
+fightInt <- intTableConv (eliFights [,c(1,3,2,6)], format = '%Y-%m-%d')
+fightInt
+sapply (class, fightInt$interactions)
+sapply (fightInt$interactions, class)
+range (fightInt$interactions$datetime)
+sort (fightInt$interactions$datetime)
+library(linHierarchy)
+source('~/.active-rstudio-document', echo=TRUE)
+fightInt
+eloF <- eloTable (fightInt)
+extractScores (eloF, tObj = Sys.time())
+temp <- MCMCBradTerr (eloF)
+temp <- MCMCBradTerr (fightInt)
+toBayesDF (fightInt)
+toBayesDF
+library(linHierarchy)
+source('~/Google Drive/Elo_Ranking/testing/mma/mma.R', echo=TRUE)
+fightInt
+sort (fightInt$interactions$datetime)
+sort (fightInt$interactions$datetime) c(1,nrow (fightInt$interactions))
+sort (fightInt$interactions$datetime) [c(1,length (fightInt$interactions))]
+sort (fightInt$interactions$datetime) [c(1,nrow (fightInt$interactions))]
+?as.POSIXct
+head (eliFights)
+as.POSIXct (eliFights$date, tz = "EST", format = "%Y-%m-%d")
+eliFights$date
+is.NA (as.POSIXct (eliFights$date, tz = "EST", format = "%Y-%m-%d"))
+is.na (as.POSIXct (eliFights$date, tz = "EST", format = "%Y-%m-%d"))
+eliFights$date (is.na (as.POSIXct (eliFights$date, tz = "EST", format = "%Y-%m-%d")))
+eliFights$date [is.na (as.POSIXct (eliFights$date, tz = "EST", format = "%Y-%m-%d")),
+]
+eliFights [is.na (as.POSIXct (eliFights$date, tz = "EST", format = "%Y-%m-%d")),]
+range(is.na (as.POSIXct (eliFights$date, tz = "EST", format = "%Y-%m-%d")))
+range(as.POSIXct (eliFights$date, tz = "EST", format = "%Y-%m-%d"))
+as.POSIXct (eliFights$date, tz = "EST", format = "%Y-%m-%d") [1]
+sort (as.POSIXct (eliFights$date, tz = "EST", format = "%Y-%m-%d")) [c(1)]
+sort (as.POSIXct (eliFights$date, tz = "EST", format = "%Y-%m-%d"))
+?sort
+library(linHierarchy)
+source('~/Google Drive/Elo_Ranking/testing/mma/mma.R', echo=TRUE)
+fightInt
+?subset.interData
+subset (fightInt, players = 'Eddie Alvarez', and = False)
+subset (fightInt, players = 'Eddie Alvarez', and = F)
+fights [ fights$fighter == 'Eddie Alvarez', ]
+eli
+subset (fightInt, players = 'Nate Diaz', and = False)
+subset (fightInt, players = 'Nate Diaz', and = F)
+source('~/Google Drive/Elo_Ranking/testing/mma/mma.R', echo=TRUE)
+source('~/.active-rstudio-document', echo=TRUE)
+source('~/.active-rstudio-document', echo=TRUE)
+source('~/.active-rstudio-document', echo=TRUE)
+fights
+head (uniFights)
+uniFights <- unique (alpha [,c(1,3,2,6)])
+head (uniFights)
+eliFights <- subset (uniFights, player.1 %in% eli & player.2 %in% eli)
+head (eliFights)
+fightInt <- intTableConv (eliFights, format = '%Y-%m-%d')
+fightInt
+eliFights$date <- getDate (eliFights$date)
+fightInt <- intTableConv (eliFights, format = '%Y-%m-%d')
+fightInt
+eloF <- eloTable (fightInt)
+extractScores (eloF, tObj = Sys.time())
+extractScores (eloF, tObj = Sys.time())
+subset (fightInt, players = 'Benson Henderson', and = F)
+subset (fightInt, players = 'Benson Henderson', and = F)$interactions
+subset (fightInt, players = 'Eddie Alvarez', and = F)$interactions
+subset (fightInt, players = 'Shinya Aoki', and = F)$interactions
+extractScores (eloF, tObj = Sys.time())
+extractScores (eloF, tObj = Sys.time()) [1:20,]
+subset (fightInt, players = 'Khabib Nurmagomedov', and = F)$interactions
+temp <- MCMCBradTerr (fightInt)
+subset (fightInt, players = 'Jose Aldo', and = F)$interactions
+extractScores (eloF, tObj = Sys.time()) [1:20,]
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:10,'player'])
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:10,'player'],)
+?plot.eloTable
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:10,'player'],
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'))
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:10,'player'],
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 3)
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:10,'player'],
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6)
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:10,'player'],
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3)
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:5,'player'],
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3)
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:7,'player'],
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3)
+subset (fightInt, players='Anthony Pettis', and = F)
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:7,'player'],
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3, xlab = 'Elo Rating',
+ylab = 'Year')
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:7,'player'],
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3, ylab = 'Elo Rating',
+xlab = 'Year')
+plot (eloF, players = c('Benson Henderson', 'Anthony Pettis','Gilbert Melendez',
+'Josh Thompson', 'Khabib Nurmagomedov',
+'Rafael dos Anjos'),
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3, ylab = 'Elo Rating',
+xlab = 'Year')
+plot (eloF, players = c('Benson Henderson', 'Anthony Pettis','Gilbert Melendez',
+'Josh Thompson', 'Khabib Nurmagomedov',
+'Rafael dos Anjos', 'Donald Cerrone'),
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3, ylab = 'Elo Rating',
+xlab = 'Year')
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:7,'player'],
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3, ylab = 'Elo Rating',
+xlab = 'Year')
+plot (eloF, players = c('Benson Henderson', 'Anthony Pettis','Gilbert Melendez',
+'Josh Thompson', 'Khabib Nurmagomedov',
+'Rafael dos Anjos', 'Donald Cerrone'),
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3, ylab = 'Elo Rating',
+xlab = 'Year')
+plot (eloF, players = extractScores (eloF, tObj = Sys.time()) [1:7,'player'],
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3, ylab = 'Elo Rating',
+xlab = 'Year')
+plot (eloF, players =c('Anthony Pettis', 'Benson Henderson', 'Gilbert Melendez',
+'Josh Thompson', 'Khabib Nurmagomedov',
+'Rafael dos Anjos', 'Donald Cerrone'),
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3, ylab = 'Elo Rating',
+xlab = 'Year')
+subset (fightInt, players = 'Jose Aldo', and = F)$interactions
+subset (fightInt, players = 'Jung Chan-Sung', and = F)$interactions
+subset (fightInt, players = 'Chan Sung Jung', and = F)$interactions
+subset (fightInt, players = 'Manvel Gamburyan', and = F)$interactions
+subset (fightInt, players = 'Mannny Gamburyan', and = F)$interactions
+subset (fightInt, players = 'Manny Gamburyan', and = F)$interactions
+fightInt$players
+eli
+source('~/.active-rstudio-document', echo=TRUE)
+extractScores (eloF, tObj = Sys.time()) [1:20,]
+plot (eloF, players =c('Anthony Pettis', 'Benson Henderson', 'Gilbert Melendez',
+'Josh Thomson', 'Khabib Nurmagomedov',
+'Rafael dos Anjos', 'Donald Cerrone'),
+col = c('red', 'green', 'black', 'blue', 'orange', 'pink', 'purple',
+'brown', 'yellow', 'grey'), lty = 6, lwd = 3, ylab = 'Elo Rating',
+xlab = 'Year')
+subset (fightInt, players='Jose Aldo', and = F)
+subset (fightInt, players='Jose Aldo', and = F)$interactions
+max (eloF$eloTable$score)
+eloF$eloTable [eloF$eloTable$score == max (eloF$eloTable$score),]
+fightInt
+eli
+subset (fightInt, players='B.J. Penn', and = F)$interactions
+eloF$eloTable [order (eloF$eloTable$score),]
+subset (fightInt, players='B.J. Penn', and = F)$interactions
+IaSI (fightInt)
+class (fightInt)
+eloTable
+fightInt
+IaSI (fightInt)
+IaSI
+toDomMat (fightInt)
+toDomMat
+idError (fightInt)
+idError (2)
+toInterMat
+Pij
+library(linHierarchy)
+toDomMat (fightInt)
+IaSI (fightInt)
+eloTab <- eloF
+BU <- 0; plyrs <- eloTab$players
+pLis <- lapply (players, function (x) subset (eloTab$eloTable, player == x))
+pLis <- lapply (plyrs, function (x) subset (eloTab$eloTable, player == x))
+pLis [[1]]
+len (pLis)
+length (pLis)
+upset <- function (eloTab){
+BU <- 0; indv <- ''; date <- NA; plyrs <- eloTab$players
+pLis <- lapply (plyrs, function (x) subset (eloTab$eloTable, player == x))
+for (i in  1:length(pLis)){
+for (j in 2:nrow (pLis [[i]])){
+if (pLis [[i]] [j,2] - pLis [[i]] [j-1,2] > BU){
+BU <- pLis [[i]] [j,2] - pLis [[i]] [j-1,2]
+indv <- pLis [[i]] [j,1]; date <- pLis [[i]] [j,3]
+}
+}
+}
+return (list (BU, indv, date))
+}
+upset (eloF)
+subset (fightInt, players='Sergey Golyyaev', and=F)
+subset (fightInt, players='Sergey Golyaev', and=F)
+source('~/Google Drive/Elo_Ranking/testing/mma/mma.R', echo=TRUE)
+subset (fightInt, players='Gray Maynard', and=F)
+subset (fightInt, players='Gray Maynard', and=F)$interactions
+subset (eloF$eloTable, player== 'Gray Maynard')
+subset (eloF$eloTable, player== 'Frankie Edgar')
