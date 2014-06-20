@@ -9,7 +9,7 @@
 #' @details Using an eloTable the function will look for the largest upset 
 #' between two players as recorded by their difference in initial score. Only 
 #' victories where the unlikely player wins will be considered.
-#' @return A data frame sorted by greatest upset
+#' @return A data frame sorted by greatest upset.
 #' @examples 
 #' # generate generic data
 #' interactions <- data.frame (a = sample (letters [1:10], 100, T),
@@ -20,7 +20,7 @@
 #' id1 <- intTableConv (interactions)
 #' # produce eloTable object
 #' et1 <- eloTable (id1)
-#' # get top 5 highest scores attained in the table
+#' # get top 5 biggest upsets in the eloTable
 #' upsetElo (et1, 5)
 #' @export
 

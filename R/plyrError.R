@@ -8,7 +8,7 @@
 plyrError <- function (players, intData){
     plyrs <- as.character (players)
     if (!all (plyrs %in% intData$players)){
-        stop ('The following players are not in the argumnet ', 
+        stop ('The following players are not in the argument ', 
               deparse (substitute (intData)), ': ',
               deparse (plyrs [!(plyrs %in% intData$players)]))
     }
