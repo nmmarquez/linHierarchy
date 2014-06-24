@@ -4,7 +4,7 @@
 \title{Bayesian Approximation of Bradley Terry Pairwise Comparisons}
 \usage{
 MCMCBradTerr(intData, fixed.player = 1, b0 = 0, B0 = 0.001,
-  beta.start = 0, ...)
+  beta.start = 0, MLE = FALSE, ...)
 }
 \arguments{
 \item{intData}{An object of class "interData" which provides the data frame
@@ -31,11 +31,15 @@ players (excluding those who only have tie interaction outcomes) - 1. If this
 takes a scalar value that value will be the start for all player ratings
 (excluding the first player who is fixed at zero).}
 
+\item{MLE}{logical indicating to use MLE instead of bayesian methods. Default
+is set to FALSE.}
+
 \item{...}{Further arguments to be passed to the MCMClogit function}
 }
 \value{
-An mcmc object that contains the posterior sample. This object can be
-summarized by functions provided by the coda package.
+If MLE == FALSE An mcmc object that contains the posterior sample.
+This object can be summarized by functions provided by the coda package. Else
+a glm pbject will be returned.
 }
 \description{
 The function generates a posterior of player ratings using the methods
@@ -65,6 +69,8 @@ id1.noTies <- subset (id1, ties = FALSE)
 posterior <- MCMCBradTerr (id1.noTies)
 # plot posterior distributions
 plot (posterior)
+# MLE used instead
+summary (MCMCBradTerr (id1.noTies, MLE = TRUE))
 }
 \references{
 E.S. Adams (2005) Bayesian Analysis of Linear Dominance
