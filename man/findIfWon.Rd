@@ -3,7 +3,7 @@
 \alias{findIfWon}
 \title{Find if player won in interaction}
 \usage{
-findIfWon(player, intData, row)
+findIfWon(player, intData, rows = 1:nrow(intData$interactions))
 }
 \arguments{
 \item{player}{a player from the row in the interData object}

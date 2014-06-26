@@ -13,19 +13,15 @@
 #' @return logical indicating the wether the player won or not
 #' @export
 
-findIfWon <- function (player, intData, row){
+findIfWon <- function (player, intData, rows = 1:nrow (intData$interactions)){
     idError (intData); plyrError (player, intData)
+    inter <- intData$interactions; final <- vector()
     
-    intData$interactions <- intData [['interactions']]
-    if (player == intData$interactions [row, 1]){
-        return (intData$interactions [row, 3] == 1)
+    for (r in rows){
+        if (player == inter [r,1]){final <- c(final, inter [r,3] == 1)}
+        else if (player == inter [r,2]){final <- c(final, inter [r,3] == -1)}
+        else {final <- c(final, NA)}
     }
     
-    else if (player == intData$interactions [row, 2]){
-        return (intData$interactions [row, 3] == -1)
-    }
-    
-    else{
-        return (NA)
-    }
+    final
 }
