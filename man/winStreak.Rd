@@ -3,12 +3,15 @@
 \alias{winStreak}
 \title{Find win streak of players in group}
 \usage{
-winStreak(intData, players = intData$players)
+winStreak(intData, players = intData$players, sList = FALSE)
 }
 \arguments{
-\item{intData}{an object of class "interData" from which wins are evaluated}
+\item{intData}{an object of class "interData" from which wins are evaluated.}
 
-\item{players}{teh players to get winstreaks of}
+\item{players}{teh players to get winstreaks of.}
+
+\item{sList}{logical indicating wether a detailed list should be returned
+indicating player records and winstreaks. Default is FALSE.}
 }
 \value{
 data frame detailing the winstreaks of the specified players.
@@ -31,5 +34,7 @@ interactions <- data.frame (a = sample (letters [1:10], 100, T),
 id1 <- intTableConv (interactions)
 # get the winstreaks of players
 winStreak (id1)
+# with details
+winStreak (id1, sList = TRUE)
 }
 

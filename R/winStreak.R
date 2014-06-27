@@ -2,8 +2,10 @@
 #' 
 #' Given an interData object returns the longest win streaks for each player.
 #' 
-#' @param intData an object of class "interData" from which wins are evaluated
-#' @param players teh players to get winstreaks of
+#' @param intData an object of class "interData" from which wins are evaluated.
+#' @param players teh players to get winstreaks of.
+#' @param sList logical indicating wether a detailed list should be returned
+#' indicating player records and winstreaks. Default is FALSE.
 #' @details The function will return a dataframe with specified players from
 #' the interData object along with their longest win streak and the dates of the
 #' first and last victory. 
@@ -18,16 +20,20 @@
 #' id1 <- intTableConv (interactions)
 #' # get the winstreaks of players
 #' winStreak (id1)
+#' # with details
+#' winStreak (id1, sList = TRUE)
 #' @export
 
-winStreak <- function (intData, players = intData$players){
+winStreak <- function (intData, players = intData$players, sList = FALSE){
     idError (intData); plyrError (players, intData); N <- length (players)
     
     subL <- lapply (players, function (x) subset (intData, player = x, and = F))
     winC <- lapply (1:N, function (x)
-        cbind (subL [[x]] [[3]], findIfWon (players [x], subL [[x]])))
+        cbind (subL [[x]] [[3]], win = findIfWon (players [x], subL [[x]])))
     streakL <- lapply (winC, function (x) 
-        cbind (x, (x [,5]) * unlist(lapply(rle(x [,5])$lengths, seq_len))))
+        cbind (x, streak = x[,5] * unlist(lapply(rle(x[,5])$lengths, seq_len))))
+    
+    if (sList) {names (streakL) <- players; return (streakL)}
     
     df <- data.frame (player = as.character(NA), streak = as.numeric(NA),
                       start = as.POSIXct(NA), end = as.POSIXct(NA),
