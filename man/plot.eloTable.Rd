@@ -31,7 +31,7 @@ correspond to the colors to be used in the visualization for each player.}
 \item{main}{a main title for the plot.}
 
 \item{xlim}{the x limits (x1, x2) of the plot. Note that x1 > x2 is allowed
-and leads to a ‘reversed axis’.}
+and leads to a 'reversed axis'.}
 
 \item{ylim}{the y limits of the plot.}
 

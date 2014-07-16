@@ -15,7 +15,7 @@
 #' @param ylab a label for the y axis, defaults to "Rating".
 #' @param main a main title for the plot.
 #' @param xlim the x limits (x1, x2) of the plot. Note that x1 > x2 is allowed
-#' and leads to a ‘reversed axis’.
+#' and leads to a 'reversed axis'.
 #' @param ylim the y limits of the plot.
 #' @param lty,lwd the line types and widths for lines appearing in the legend.
 #' @param legend logical indicating wether to include legend.
