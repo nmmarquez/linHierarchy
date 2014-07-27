@@ -17,4 +17,4 @@ rating algorithms:
 - David's Score
 - Bayesian Approximation Ranking
 
-Check out the [demo](http://rpubs.com/nmmarquez/linHier) on rpubs!
+Check out the [demo](http://rpubs.com/nmmarquez/linHier) on Rpubs!
