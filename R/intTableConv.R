@@ -40,6 +40,7 @@
 #' @export
 
 intTableConv <- function (df, ...){
+    df[,1] <- as.character(df[,1]); df[,2] <- as.character(df[,2])
     df.int <- df [df [,1] != df [,2],1:4]
     names (df.int) <- c("player.1", "player.2", "outcome", "datetime")
     df.int [,1] <- as.character (df.int [,1])
